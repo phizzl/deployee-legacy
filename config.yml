@@ -1,0 +1,11 @@
+default_environment: test
+jira: ~
+environments:
+  test:
+    deployments: ~/deployments
+    database:
+      mysql:
+        host: localhost
+        user: root
+        password: ~
+        name: test

@@ -1,0 +1,11 @@
+{
+  "autoload": {
+    "psr-4": {"Deployee\\": "src/"}
+  },
+  "require": {
+    "pimple/pimple": "~3.0",
+    "symfony/console": "^3.2",
+    "symfony/event-dispatcher": "^3.2",
+    "symfony/yaml": "^3.2"
+  }
+}
