@@ -47,8 +47,8 @@ class Table extends \Phinx\Db\Table
      * @return \Phinx\Db\Table
      */
     public function changeColumn($columnName, $newColumnType, $options = array()){
-        if(is_string($columnName)){
-            $columnName = $this->createColumnObject($columnName, $newColumnType, $options);
+        if(is_string($newColumnType)){
+            $newColumnType = $this->createColumnObject($columnName, $newColumnType, $options);
         }
 
         return parent::changeColumn($columnName, $newColumnType, $options);

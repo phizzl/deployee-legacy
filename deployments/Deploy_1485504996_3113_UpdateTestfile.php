@@ -1,5 +1,7 @@
 <?php
 
+use Deployee\Database\DatabaseManager;
+
 class Deploy_1485504996_3113_UpdateTestfile extends Deployee\Deployments\AbstractDeployment
 {
     /**
@@ -9,5 +11,14 @@ class Deploy_1485504996_3113_UpdateTestfile extends Deployee\Deployments\Abstrac
         $this->context->set('ticket', 'ABC-100');
         $this->updateFile(__DIR__ . '/test.txt', 'This is my updated content!');
         $this->createFile(__DIR__ . '/test2.txt', 'Another test file');
+
+        /* @var DatabaseManager $dbm */
+        $dbm = $this->container['db'];
+        $this->createTable(
+            $dbm
+                ->table('my_test_table', array('primary_key' => 'id'))
+                ->addColumn('id', 'integer', array('length' => 128, 'autoincrement' => true))
+                ->addColumn('oneNiceColumn', 'text')
+        );
     }
 }
