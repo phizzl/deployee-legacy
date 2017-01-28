@@ -29,11 +29,10 @@ class DatabaseCreateEventSubscriber implements EventSubscriberInterface
         /* @var Environment $env */
         $env = $event->getContainer()['config']->getEnvironment();
 
-        $this->registerAdapterMysql($container);
+        $this->registerAdapterMysql($container, $env);
 
         foreach($env->getDatabaseConfiguration() as $type => $conf){
             $adapter = $container['db.adapter.'.$type];
-            $adapter->setConfiguration($conf);
             $db->registerAdapter($type, $adapter);
         }
     }
@@ -43,8 +42,8 @@ class DatabaseCreateEventSubscriber implements EventSubscriberInterface
      */
     protected function registerAdapterMysql(DIContainer $container){
         $container['db.adapter.mysql'] = $container->factory(function($c){
-            $adapter = new MysqlAdapter();
-            $adapter->setContainer($c);
+            $env = $c['config']->getEnvironment();
+            $adapter = new MysqlAdapter($env->getDatabaseConfiguration('mysql'));
 
             return $adapter;
         });

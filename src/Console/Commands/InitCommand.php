@@ -27,24 +27,21 @@ class InitCommand extends AbstractCommand
     protected function execute(InputInterface $input, OutputInterface $output){
         /* @var DatabaseManager $dbm */
         $dbm = $this->container['db'];
-        /* @var MysqlAdapter $mysqlAdapter */
-        $mysqlAdapter = $dbm->getAdapter('mysql');
 
-        $this->createHistoryTable($mysqlAdapter, $output);
-        $this->createAuditTable($mysqlAdapter, $output);
-
+        $this->createHistoryTable($dbm, $output);
+        $this->createAuditTable($dbm, $output);
 
         $output->write("Initialization done!");
     }
 
     /**
-     * @param MysqlAdapter $mysqlAdapter
+     * @param DatabaseManager $dbm
      * @param OutputInterface $output
      */
-    private function createHistoryTable(MysqlAdapter $mysqlAdapter, OutputInterface $output){
+    private function createHistoryTable(DatabaseManager $dbm, OutputInterface $output){
         /* @var Table $table */
 
-        $table = $mysqlAdapter->table('deployee_history', array(
+        $table = $dbm->table('deployee_history', array(
             'primary_key' => 'deployment_id',
             'indices' => array(
                 'idx_deployment_id' => 'deployment_id',
@@ -68,10 +65,10 @@ class InitCommand extends AbstractCommand
      * @param MysqlAdapter $mysqlAdapter
      * @param OutputInterface $output
      */
-    private function createAuditTable(MysqlAdapter $mysqlAdapter, OutputInterface $output){
+    private function createAuditTable(DatabaseManager $dbm, OutputInterface $output){
         /* @var Table $table */
 
-        $table = $mysqlAdapter->table('deployee_task_audit', array(
+        $table = $dbm->table('deployee_task_audit', array(
             'primary_key' => 'id',
             'indices' => array(
                 'idx_deployment_id' => 'deployment_id',
@@ -81,19 +78,17 @@ class InitCommand extends AbstractCommand
         if(!$table->exists()){
             $output->writeln("Creating table \"{$table->getName()}\"");
             $table
-                ->addColumn('id', 'int', array('length' => 128, 'auto_increment' => true))
+                ->addColumn('id', 'integer', array('length' => 128, 'autoincrement' => true))
                 ->addColumn('deployment_id', 'char', array('length' => 128))
-                ->addColumn('task_identifier', 'varchar', array('length' => 255))
+                ->addColumn('task_identifier', 'string', array('length' => 255))
                 ->addColumn('context', 'text')
-                ->addColumn('success', 'tinyint', array('length' => 1, 'signed' => false, 'default' => 0))
+                ->addColumn('success', 'integer', array('length' => 1, 'signed' => false, 'default' => 0))
                 ->addColumn('deploydate', 'datetime')
                 ->addColumn('instance', 'char', array('length' => 128))
                 ->create();
         }
 
-
-
-        $table = $mysqlAdapter->table('deployee_deployment_audit', array(
+        $table = $dbm->table('deployee_deployment_audit', array(
             'primary_key' => 'id',
             'indices' => array(
                 'idx_deployment_id' => 'deployment_id',
@@ -104,10 +99,10 @@ class InitCommand extends AbstractCommand
         if(!$table->exists()) {
             $output->writeln("Creating table \"{$table->getName()}\"");
             $table
-                ->addColumn('id', 'int', array('length' => 128, 'auto_increment' => true))
+                ->addColumn('id', 'integer', array('length' => 128))
                 ->addColumn('deployment_id', 'char', array('length' => 128))
                 ->addColumn('context', 'text')
-                ->addColumn('success', 'tinyint', array('length' => 1, 'signed' => false, 'default' => 0))
+                ->addColumn('success', 'integer', array('length' => 1, 'signed' => false, 'default' => 0))
                 ->addColumn('deploydate', 'datetime')
                 ->addColumn('instance', 'char', array('length' => 128))
                 ->create();

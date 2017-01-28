@@ -5,8 +5,9 @@ namespace Deployee\Database;
 
 
 use Deployee\ContainerAwareInterface;
-use Deployee\Database\Adapter\AdapterInterface;
+use Deployee\Database\Adapter\Mysql\Table;
 use Deployee\DIContainer;
+use Phinx\Db\Adapter\AdapterInterface;
 
 class DatabaseManager implements ContainerAwareInterface
 {
@@ -49,5 +50,14 @@ class DatabaseManager implements ContainerAwareInterface
             throw new \Exception("Unregistered adapter requested \"$type\"");
         }
         return $this->adapter[$type];
+    }
+
+    /**
+     * @param string $name
+     * @param array $options
+     * @return Table
+     */
+    public function table($name, array $options = array()){
+        return new Table($name, $options, $this->getAdapter('mysql'));
     }
 }

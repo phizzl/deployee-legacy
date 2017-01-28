@@ -7,16 +7,18 @@ namespace Deployee\Deployments;
 use Deployee\ContainerAwareInterface;
 use Deployee\Context;
 use Deployee\ContextContainingInterface;
+use Deployee\Database\Adapter\Mysql\Table;
 use Deployee\Deployments\Tasks\Files\CreateFileTask;
 use Deployee\Deployments\Tasks\Files\RemoveFileTask;
 use Deployee\Deployments\Tasks\Files\SetFileGroupTask;
 use Deployee\Deployments\Tasks\Files\SetFileOwnerTask;
 use Deployee\Deployments\Tasks\Files\SetFilePermissionTask;
 use Deployee\Deployments\Tasks\Files\UpdateFileTask;
+use Deployee\Deployments\Tasks\Mysql\ChangeTableTask;
+use Deployee\Deployments\Tasks\Mysql\CreateTableTask;
 use Deployee\Deployments\Tasks\TaskExecutionException;
 use Deployee\Deployments\Tasks\TaskInterface;
 use Deployee\Descriptions\DeploymentDescription;
-use Deployee\Descriptions\Markdown;
 use Deployee\DIContainer;
 use Deployee\ExecutionStatusAwareInterface;
 
@@ -232,6 +234,22 @@ abstract class AbstractDeployment implements ContainerAwareInterface, Deployment
      */
     protected function removeFile($target){
         return $this->addTask(new RemoveFileTask($target));
+    }
+
+    /**
+     * @param Table $table
+     * @return AbstractDeployment
+     */
+    protected function createTable(Table $table){
+        return $this->addTask(new CreateTableTask($table));
+    }
+
+    /**
+     * @param Table $table
+     * @return AbstractDeployment
+     */
+    protected function changeTable(Table $table){
+        return $this->addTask(new ChangeTableTask($table));
     }
 
     /**

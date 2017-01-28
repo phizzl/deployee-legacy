@@ -4,52 +4,50 @@
 namespace Deployee\Database\Adapter;
 
 
-use Deployee\Database\Adapter\Mysql\SchemaTool;
-use Deployee\Database\Adapter\Mysql\Table;
 
-class MysqlAdapter extends AbstractAdapter
+
+use Deployee\Database\Adapter\Mysql\Table;
+use Phinx\Db\Table\Column;
+
+class MysqlAdapter extends \Phinx\Db\Adapter\MysqlAdapter
 {
     /**
-     * @var \PDO
+     * @var bool
      */
-    private $pdo;
+    private $disableExecutingQueries;
 
     /**
-     * @var SchemaTool
+     * @var string
      */
-    private $schemaTool;
+    private $lastQuery;
 
     /**
-     * @param array $conf
+     * @param Table $table
+     * @return mixed
      */
-    public function setConfiguration(array $conf){
-        $this->pdo = new \PDO("mysql:={$conf['host']};dbname={$conf['name']}", $conf['user'], $conf['password']);
+    public function getCreateSql(Table $table){
+        $this->disableExecutingQueries = true;
+        $this->createTable($table);
+        $this->disableExecutingQueries = false;
+
+        return $this->lastQuery;
     }
 
     /**
-     * @param string $name
-     * @param array $options
-     * @return Table
+     * @param string $sql
+     * @return int|null
      */
-    public function table($name, array $options = array()){
-        return new Table($this->pdo, $this->getSchemaTool(), $name, $options);
+    public function execute($sql){
+        $this->lastQuery = $sql;
+        return $this->disableExecutingQueries ? null : parent::execute($sql);
     }
 
     /**
-     * @return SchemaTool
+     * @param Column $column
+     * @return string
      */
-    public function getSchemaTool(){
-        if($this->schemaTool === null){
-            $this->schemaTool = new SchemaTool($this->pdo);
-        }
-
-        return $this->schemaTool;
-    }
-
-    /**
-     * @return \PDO
-     */
-    public function getPDO(){
-        return $this->pdo;
+    public function getColumnSqlDefinition(Column $column){
+        return parent::getColumnSqlDefinition($column) .
+            ($column->getCollation() ? " COLLATE '{$column->getCollation()}'" : "");
     }
 }
