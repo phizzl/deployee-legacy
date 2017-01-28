@@ -41,7 +41,7 @@ class DeploymentHistory implements ContainerAwareInterface
      */
     public function addToHistory(DeploymentInterface $deployment){
         $now = new \DateTime();
-        $historyTable = $this->getMysqlAdapter()->table('deployee_history');
+        $historyTable = $this->getDatabaseManager()->table('deployee_history');
         $historyTable->insert(array(
             'deployment_id' => $deployment->getDeploymentId(),
             'deploydate' => $now->format(\DateTime::ATOM),
@@ -49,7 +49,7 @@ class DeploymentHistory implements ContainerAwareInterface
                 ? json_encode($deployment->getContext()->getContents())
                 : '',
             'instance' => $this->container['config']->getEnvironment()->getInstanceId()
-        ))->execute();
+        ))->saveData();
     }
 
     /**

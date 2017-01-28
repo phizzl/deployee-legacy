@@ -58,6 +58,7 @@ class InitCommand extends AbstractCommand
             ->addColumn('context', 'text')
             ->addColumn('deploydate', 'datetime')
             ->addColumn('instance', 'char', array('length' => 128))
+            ->addIndex('instance')
             ->create();
     }
 
@@ -85,15 +86,13 @@ class InitCommand extends AbstractCommand
                 ->addColumn('success', 'integer', array('length' => 1, 'signed' => false, 'default' => 0))
                 ->addColumn('deploydate', 'datetime')
                 ->addColumn('instance', 'char', array('length' => 128))
+                ->addIndex('instance')
+                ->addIndex('deployment_id')
                 ->create();
         }
 
         $table = $dbm->table('deployee_deployment_audit', array(
-            'primary_key' => 'id',
-            'indices' => array(
-                'idx_deployment_id' => 'deployment_id',
-                'idx_instance' => 'instance'
-            )
+            'primary_key' => 'id'
         ));
 
         if(!$table->exists()) {
@@ -105,6 +104,8 @@ class InitCommand extends AbstractCommand
                 ->addColumn('success', 'integer', array('length' => 1, 'signed' => false, 'default' => 0))
                 ->addColumn('deploydate', 'datetime')
                 ->addColumn('instance', 'char', array('length' => 128))
+                ->addIndex('instance')
+                ->addIndex('deployment_id')
                 ->create();
         }
     }

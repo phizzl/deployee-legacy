@@ -27,7 +27,7 @@ class ChangeTableTask extends AbstractTask
      * @inheritdoc
      */
     public function execute(){
-        $this->table->change();
+        $this->table->update();
     }
 
     /**
