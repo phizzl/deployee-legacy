@@ -30,7 +30,7 @@ class DeploymentAudit implements ContainerAwareInterface
      */
     public function addTaskToAudit(DeploymentInterface $deployment, TaskInterface $task){
         $now = new \DateTime();
-        $auditTable = $this->getMysqlAdapter()->table('deployee_task_audit');
+        $auditTable = $this->getDatabaseManager()->table('deployee_task_audit');
         $auditTable->insert(array(
             'deployment_id' => $deployment->getDeploymentId(),
             'task_identifier' => $task->getTaskIdentifier(),
@@ -38,7 +38,7 @@ class DeploymentAudit implements ContainerAwareInterface
             'deploydate' => $now->format(\DateTime::ATOM),
             'success' => $task->getExecutionStatus(),
             'instance' => $this->container['config']->getEnvironment()->getInstanceId()
-        ))->execute();
+        ))->saveData();
     }
 
     /**
@@ -46,7 +46,7 @@ class DeploymentAudit implements ContainerAwareInterface
      */
     public function addDeploymentToAudit(DeploymentInterface $deployment){
         $now = new \DateTime();
-        $auditTable = $this->getMysqlAdapter()->table('deployee_deployment_audit');
+        $auditTable = $this->getDatabaseManager()->table('deployee_deployment_audit');
         $auditTable->insert(array(
             'deployment_id' => $deployment->getDeploymentId(),
             'context' => $deployment instanceof ContextContainingInterface
@@ -55,7 +55,7 @@ class DeploymentAudit implements ContainerAwareInterface
             'deploydate' => $now->format(\DateTime::ATOM),
             'success' => $deployment->getExecutionStatus(),
             'instance' => $this->container['config']->getEnvironment()->getInstanceId()
-        ))->execute();
+        ))->saveData();
     }
 
     /**

@@ -50,4 +50,21 @@ class MysqlAdapter extends \Phinx\Db\Adapter\MysqlAdapter
         return parent::getColumnSqlDefinition($column) .
             ($column->getCollation() ? " COLLATE '{$column->getCollation()}'" : "");
     }
+
+    /**
+     * @param string $sql
+     * @param array $driverOptions
+     * @return \PDOStatement
+     */
+    public function prepare($sql, array $driverOptions = array()){
+        return $this->getConnection()->prepare($sql, $driverOptions);
+    }
+
+    /**
+     * Prevent Phinx from creating a schema table
+     * @return bool
+     */
+    public function createSchemaTable(){
+
+    }
 }

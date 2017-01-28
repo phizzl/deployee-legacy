@@ -62,7 +62,7 @@ class InitCommand extends AbstractCommand
     }
 
     /**
-     * @param MysqlAdapter $mysqlAdapter
+     * @param DatabaseManager $dbm
      * @param OutputInterface $output
      */
     private function createAuditTable(DatabaseManager $dbm, OutputInterface $output){
@@ -99,7 +99,7 @@ class InitCommand extends AbstractCommand
         if(!$table->exists()) {
             $output->writeln("Creating table \"{$table->getName()}\"");
             $table
-                ->addColumn('id', 'integer', array('length' => 128))
+                ->addColumn('id', 'integer', array('length' => 128, 'autoincrement' => true))
                 ->addColumn('deployment_id', 'char', array('length' => 128))
                 ->addColumn('context', 'text')
                 ->addColumn('success', 'integer', array('length' => 1, 'signed' => false, 'default' => 0))

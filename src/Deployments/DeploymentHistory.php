@@ -29,7 +29,7 @@ class DeploymentHistory implements ContainerAwareInterface
      */
     public function isDeployed(DeploymentInterface $deployment){
         $sql = "SELECT COUNT(deployment_id) FROM deployee_history WHERE deployment_id=:id";
-        $stm = $this->getPDO()->prepare($sql);
+        $stm = $this->getMysqlAdapter()->prepare($sql);
         $stm->bindValue(':id', $deployment->getDeploymentId());
         $stm->execute();
 
@@ -64,12 +64,5 @@ class DeploymentHistory implements ContainerAwareInterface
      */
     private function getMysqlAdapter(){
         return $this->getDatabaseManager()->getAdapter('mysql');
-    }
-
-    /**
-     * @return \PDO
-     */
-    private function getPDO(){
-        return $this->getMysqlAdapter()->getPDO();
     }
 }
