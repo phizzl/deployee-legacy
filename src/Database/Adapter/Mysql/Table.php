@@ -14,6 +14,21 @@ class Table extends \Phinx\Db\Table
     private $defaultOptions = array('id' => false);
 
     /**
+     * @var array
+     */
+    private $changeColumns = array();
+
+    /**
+     * @var bool
+     */
+    private $resetPendingAfterUpdate;
+
+    /**
+     * @var bool
+     */
+    private $disableExistanceCheck;
+
+    /**
      * Table constructor.
      * @param string $name
      * @param array $options
@@ -51,7 +66,43 @@ class Table extends \Phinx\Db\Table
             $newColumnType = $this->createColumnObject($columnName, $newColumnType, $options);
         }
 
-        return parent::changeColumn($columnName, $newColumnType, $options);
+        $this->changeColumns[$columnName] = array(
+            'name' => $columnName,
+            'newType' => $newColumnType,
+            'options' => $options,
+        );
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function change(){
+        foreach($this->changeColumns as $column){
+            parent::changeColumn($column['name'], $column['newType'], $column['options']);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param bool $resetPendingAfterUpdate
+     */
+    public function update($resetPendingAfterUpdate = true){
+        $this->resetPendingAfterUpdate = $resetPendingAfterUpdate;
+        $this->disableExistanceCheck = !$resetPendingAfterUpdate;
+        $this->change();
+        parent::update();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function reset(){
+        if(!$this->resetPendingAfterUpdate) {
+            parent::reset();
+        }
     }
 
     /**
@@ -73,5 +124,26 @@ class Table extends \Phinx\Db\Table
      */
     public function getCreateSql(){
         return $this->getAdapter()->getCreateSql($this);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getChangeSql(){
+        return $this->getAdapter()->getChangeSql($this);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdateSql(){
+        return $this->getAdapter()->getUpdateSql($this);
+    }
+
+    /**
+     * @return bool
+     */
+    public function exists(){
+        return $this->disableExistanceCheck ? true : parent::exists();
     }
 }

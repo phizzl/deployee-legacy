@@ -19,7 +19,7 @@ class MysqlAdapter extends \Phinx\Db\Adapter\MysqlAdapter
     /**
      * @var string
      */
-    private $lastQuery;
+    private $lastQuery = "";
 
     /**
      * @param Table $table
@@ -29,8 +29,53 @@ class MysqlAdapter extends \Phinx\Db\Adapter\MysqlAdapter
         $this->disableExecutingQueries = true;
         $this->createTable($table);
         $this->disableExecutingQueries = false;
+        $lastQuery = $this->lastQuery;
+        $this->lastQuery = "";
 
-        return $this->lastQuery;
+        return $lastQuery;
+    }
+
+    /**
+     * @param Table $table
+     * @return string
+     */
+    public function getChangeSql(Table $table){
+        $this->disableExecutingQueries = true;
+        $this->changeTable($table);
+        $this->disableExecutingQueries = false;
+        $lastQuery = $this->lastQuery;
+        $this->lastQuery = "";
+
+        return $lastQuery;
+    }
+
+    /**
+     * @param Table $table
+     * @return string
+     */
+    public function getUpdateSql(Table $table){
+        $this->disableExecutingQueries = true;
+        $this->updateTable($table, false);
+        $this->disableExecutingQueries = false;
+        $lastQuery = $this->lastQuery;
+        $this->lastQuery = "";
+
+        return $lastQuery;
+    }
+
+    /**
+     * @param Table $table
+     */
+    public function changeTable(Table $table){
+        $table->change();
+    }
+
+    /**
+     * @param Table $table
+     * @param bool $resetAfterUpdate
+     */
+    public function updateTable(Table $table, $resetAfterUpdate = true){
+        $table->update($resetAfterUpdate);
     }
 
     /**
@@ -38,7 +83,7 @@ class MysqlAdapter extends \Phinx\Db\Adapter\MysqlAdapter
      * @return int|null
      */
     public function execute($sql){
-        $this->lastQuery = $sql;
+        $this->lastQuery .= "$sql\n";
         return $this->disableExecutingQueries ? null : parent::execute($sql);
     }
 

@@ -44,7 +44,7 @@ class ChangeTableTask extends AbstractTask
         $desc = parent::getDescription();
         $desc->describeInLang(
             TaskDescription::LANG_DE,
-            "Anpassen der Tabelle \"{$this->table->getName()}\" mit dem Statement \n\n" . $this->table->getChangeSql()
+            "Anpassen der Tabelle \"{$this->table->getName()}\" mit dem Statement \n\n" . $this->table->getUpdateSql()
 
         );
 
