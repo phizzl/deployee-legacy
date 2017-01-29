@@ -7,6 +7,13 @@
     "symfony/console": "^3.2",
     "symfony/event-dispatcher": "^3.2",
     "symfony/yaml": "^3.2",
-    "robmorgan/phinx": "^0.6.6"
-  }
+    "robmorgan/phinx": "^0.6.6",
+    "phizzl/querygenerate": "dev-master"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/phizzl/querygenerate"
+    }
+  ]
 }

@@ -4,8 +4,34 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "348c6917b6936fe6abbaf66395dd46b4",
+    "content-hash": "cbab3a26f94641fd5b19c3069fa0b015",
     "packages": [
+        {
+            "name": "phizzl/querygenerate",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phizzl/querygenerate.git",
+                "reference": "a17ea0eed01871f83369ff276d553492720cf6ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/phizzl/querygenerate/archive/master.zip",
+                "reference": "a17ea0eed01871f83369ff276d553492720cf6ad",
+                "shasum": null
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Phizzl\\QueryGenerate\\": "src/"
+                }
+            },
+            "support": {
+                "source": "https://github.com/phizzl/querygenerate/tree/master",
+                "issues": "https://github.com/phizzl/querygenerate/issues"
+            },
+            "time": "2017-01-29 14:59:38"
+        },
         {
             "name": "pimple/pimple",
             "version": "v3.0.2",
@@ -568,7 +594,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "phizzl/querygenerate": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
