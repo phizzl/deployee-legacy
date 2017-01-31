@@ -20,4 +20,9 @@ interface TableInterface extends \Phizzl\QueryGenerate\Tables\TableInterface
      * @return bool
      */
     public function exists();
+
+    /**
+     * @return mixed
+     */
+    public function saveData();
 }

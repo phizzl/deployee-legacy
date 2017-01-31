@@ -5,8 +5,7 @@ namespace Deployee\Deployments;
 
 use Deployee\ContainerAwareInterface;
 use Deployee\ContextContainingInterface;
-use Deployee\Database\Adapter\MysqlAdapter;
-use Deployee\Database\DatabaseManager;
+use Deployee\Db\DbManager;
 use Deployee\DIContainer;
 
 class DeploymentHistory implements ContainerAwareInterface
@@ -29,11 +28,9 @@ class DeploymentHistory implements ContainerAwareInterface
      */
     public function isDeployed(DeploymentInterface $deployment){
         $sql = "SELECT COUNT(deployment_id) FROM deployee_history WHERE deployment_id=:id";
-        $stm = $this->getMysqlAdapter()->prepare($sql);
-        $stm->bindValue(':id', $deployment->getDeploymentId());
-        $stm->execute();
+        $dbm = $this->getDatabaseManager();
 
-        return (bool)$stm->fetchColumn();
+        return (bool)$dbm->getOne($sql, array(':id' => $deployment->getDeploymentId()));
     }
 
     /**
@@ -42,7 +39,7 @@ class DeploymentHistory implements ContainerAwareInterface
     public function addToHistory(DeploymentInterface $deployment){
         $now = new \DateTime();
         $historyTable = $this->getDatabaseManager()->table('deployee_history');
-        $historyTable->insert(array(
+        $historyTable->addInsertData(array(
             'deployment_id' => $deployment->getDeploymentId(),
             'deploydate' => $now->format(\DateTime::ATOM),
             'context' => $deployment instanceof ContextContainingInterface
@@ -53,16 +50,9 @@ class DeploymentHistory implements ContainerAwareInterface
     }
 
     /**
-     * @return DatabaseManager
+     * @return DbManager
      */
     private function getDatabaseManager(){
         return $this->container['db'];
-    }
-
-    /**
-     * @return MysqlAdapter
-     */
-    private function getMysqlAdapter(){
-        return $this->getDatabaseManager()->getAdapter('mysql');
     }
 }

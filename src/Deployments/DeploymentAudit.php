@@ -31,7 +31,7 @@ class DeploymentAudit implements ContainerAwareInterface
     public function addTaskToAudit(DeploymentInterface $deployment, TaskInterface $task){
         $now = new \DateTime();
         $auditTable = $this->getDatabaseManager()->table('deployee_task_audit');
-        $auditTable->insert(array(
+        $auditTable->addInsertData(array(
             'deployment_id' => $deployment->getDeploymentId(),
             'task_identifier' => $task->getTaskIdentifier(),
             'context' => $task instanceof ContextContainingInterface ? json_encode($task->getContext()->getContents()) : '',
@@ -47,7 +47,7 @@ class DeploymentAudit implements ContainerAwareInterface
     public function addDeploymentToAudit(DeploymentInterface $deployment){
         $now = new \DateTime();
         $auditTable = $this->getDatabaseManager()->table('deployee_deployment_audit');
-        $auditTable->insert(array(
+        $auditTable->addInsertData(array(
             'deployment_id' => $deployment->getDeploymentId(),
             'context' => $deployment instanceof ContextContainingInterface
                 ? json_encode($deployment->getContext()->getContents())

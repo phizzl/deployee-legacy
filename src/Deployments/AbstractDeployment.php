@@ -7,7 +7,7 @@ namespace Deployee\Deployments;
 use Deployee\ContainerAwareInterface;
 use Deployee\Context;
 use Deployee\ContextContainingInterface;
-use Deployee\Database\Adapter\Mysql\Table;
+use Deployee\Db\Adapter\Mysql\Table;
 use Deployee\Deployments\Tasks\Files\CreateFileTask;
 use Deployee\Deployments\Tasks\Files\RemoveFileTask;
 use Deployee\Deployments\Tasks\Files\SetFileGroupTask;

@@ -16,9 +16,10 @@ class Deploy_1485504996_3113_UpdateTestfile extends Deployee\Deployments\Abstrac
         $dbm = $this->container['db'];
         $this->createTable(
             $dbm
-                ->table('my_test_table', array('primary_key' => 'id'))
-                ->addColumn('id', 'integer', array('length' => 128, 'autoincrement' => true))
+                ->table('my_test_table')
+                ->addColumn('id', 'int', array('length' => 128, 'autoincrement' => true))
                 ->addColumn('oneNiceColumn', 'text')
+                ->setPrimaryKey(array('id'))
         );
     }
 }

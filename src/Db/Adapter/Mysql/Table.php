@@ -54,4 +54,14 @@ class Table extends \Phizzl\QueryGenerate\Tables\Table implements TableInterface
 
         return true;
     }
+
+    /**
+     * @retun $this
+     */
+    public function saveData(){
+        $this->adapter->executeData($this);
+        return $this;
+    }
+
+
 }

@@ -74,20 +74,35 @@ class MysqlAdapter implements AdapterInterface, ContainerAwareInterface
             . (isset($conf['charset']) ? ";charset={$conf['charset']}" : '');
         $pdo = new \PDO($dsn, $conf['user'], $conf['pass'], array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
 
-        if(isset($conf['charset'])){
-            $pdo;
-        }
-
         return $this->pdo = $pdo;
     }
 
     /**
-     * @param Table $table
+     * @param TableInterface $table
      */
-    public function executeTable(Table $table){
+    public function executeTable(TableInterface $table){
         $sql = $table->generate();
-        $this->getPdo()->exec($sql);
+        try{
+            $this->getPdo()->exec($sql);
+        }
+        catch(\PDOException $e){
+            throw new \Exception($e->getMessage() . "\n----------\n$sql");
+        }
     }
+
+    /**
+     * @param TableInterface $table
+     */
+    public function executeData(TableInterface $table){
+        $sql = $table->generateData();
+        try{
+            $this->getPdo()->exec($sql);
+        }
+        catch(\PDOException $e){
+            throw new \Exception($e->getMessage() . "\n----------\n$sql", $e->getCode(), $e);
+        }
+    }
+
 
     /**
      * @param string $sql
@@ -95,5 +110,30 @@ class MysqlAdapter implements AdapterInterface, ContainerAwareInterface
      */
     public function query($sql){
         return $this->getPdo()->query($sql);
+    }
+
+    /**
+     * @param string $sql
+     * @param array|null $vars
+     * @return string
+     */
+    public function getOne($sql, array $vars = null){
+        $stmt = $this->getPdo()->prepare($sql);
+        if(is_array($vars)){
+            $this->bindArray($stmt, $vars);
+        }
+
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
+    /**
+     * @param \PDOStatement $stmt
+     * @param array $vars
+     */
+    private function bindArray(\PDOStatement $stmt, array $vars){
+        foreach($vars as $name => $val){
+            $stmt->bindParam($name, $val);
+        }
     }
 }

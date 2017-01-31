@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phizzl/querygenerate.git",
-                "reference": "a17ea0eed01871f83369ff276d553492720cf6ad"
+                "reference": "86918b410c9ccf23f05fd785a5443183f4702989"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/phizzl/querygenerate/archive/master.zip",
-                "reference": "a17ea0eed01871f83369ff276d553492720cf6ad",
+                "reference": "86918b410c9ccf23f05fd785a5443183f4702989",
                 "shasum": null
             },
             "type": "library",
@@ -30,7 +30,7 @@
                 "source": "https://github.com/phizzl/querygenerate/tree/master",
                 "issues": "https://github.com/phizzl/querygenerate/issues"
             },
-            "time": "2017-01-29 14:59:38"
+            "time": "2017-01-31 14:12:17"
         },
         {
             "name": "pimple/pimple",
