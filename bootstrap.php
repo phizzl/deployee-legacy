@@ -2,11 +2,11 @@
 
 use Deployee\Configuration;
 use Deployee\Console\Application;
-use Deployee\Database\DatabaseManager;
+use Deployee\Db\Adapter\MysqlAdapter;
+use Deployee\Db\DbManager;
 use Deployee\DIContainer;
 use Deployee\Environment;
 use Deployee\Events\ApplicationCreateEvent;
-use Deployee\Events\DatabaseCreateEvent;
 use Deployee\Subscriber\ApplicationCommandSubscriber;
 use Deployee\Subscriber\DatabaseCreateEventSubscriber;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -80,15 +80,12 @@ if(!isset($envs[ENVIRONMENT])){
 $container['config']->setEnvironment(new Environment($envs[ENVIRONMENT]));
 
 $container['db'] = function($c){
-    $db = new DatabaseManager();
-    $db->setContainer($c);
-    $event = new DatabaseCreateEvent($c);
-    $event->setDatabaseManager($db);
-    $c['eventdispatcher']->dispatch(DatabaseCreateEvent::NAME, $event);
+    $adapter = new MysqlAdapter();
+    $adapter->setContainer($c);
+    $db = new DbManager();
+    $db->setAdapter($adapter);
 
     return $db;
 };
-
-$container['db'];
 
 return $container;
