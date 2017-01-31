@@ -63,5 +63,19 @@ class Table extends \Phizzl\QueryGenerate\Tables\Table implements TableInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getCreateSql(){
+        $this->setIsCreated(false);
+        return $this->generate();
+    }
 
+    /**
+     * @return string
+     */
+    public function getUpdateSql(){
+        $this->setIsCreated(true);
+        return $this->generate();
+    }
 }

@@ -11,7 +11,7 @@ class Deploy_1485505576_3809_RemoveTestfile extends Deployee\Deployments\Abstrac
     public function configure(){
         $this->context->set('ticket', 'ABC-100');
 
-        //$this->removeFile(__DIR__ . '/test2.txt');
+        $this->removeFile(__DIR__ . '/test2.txt');
 
         /* @var DatabaseManager $dbm */
         $dbm = $this->container['db'];
