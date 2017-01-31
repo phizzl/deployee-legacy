@@ -27,32 +27,9 @@ class DeployCommand extends AbstractCommand
     protected function execute(InputInterface $input, OutputInterface $output){
         $deploymentManager = new DeploymentManager();
         $deploymentManager->setContainer($this->container);
-        $deployments = $deploymentManager->getNextDeployments();
-        try{
-            if(!count($deployments)){
-                $output->writeln("Nothing to deploy :-)");
-                return;
-            }
+        $deploymentManager->setOutput($output);
 
-            /* @var DeploymentInterface $deployment */
-            foreach($deployments as $deployment){
-                $output->writeln("Deploying \"{$deployment->getDeploymentId()}\"");
-                $deployment->deploy();
-                $deploymentManager->getHistory()->addToHistory($deployment);
-                $deploymentManager->getAudit()->addDeploymentToAudit($deployment);
-                $output->writeln("Finished deploying \"{$deployment->getDeploymentId()}\"");
-            }
+        $deploymentManager->runNextDeployments();
 
-            $output->writeln("Deployment done");
-        }
-        catch (\Exception $e){
-            $deployment->setExecutionStatus(ExecutionStatusAwareInterface::EXECUTION_FAILED);
-            $deployment->getContext()->set('error', $e->getMessage());
-            $deploymentManager->getAudit()->addDeploymentToAudit($deployment);
-
-            $output->writeln("Error while executing deployment \"{$deployment->getDeploymentId()}\"");
-            $output->writeln($e->getMessage());
-            $output->writeln($e->getTraceAsString());
-        }
     }
 }

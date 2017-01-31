@@ -7,8 +7,9 @@ namespace Deployee\Deployments;
 use Composer\Autoload\ClassLoader;
 use Deployee\Configuration;
 use Deployee\ContainerAwareInterface;
-use Deployee\Database\Adapter\MysqlAdapter;
 use Deployee\DIContainer;
+use Deployee\NullOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class DeploymentManager implements ContainerAwareInterface
 {
@@ -28,6 +29,11 @@ class DeploymentManager implements ContainerAwareInterface
     private $audit;
 
     /**
+     * @var OutputInterface
+     */
+    private $output;
+
+    /**
      * @param DIContainer $container
      */
     public function setContainer(DIContainer $container){
@@ -36,6 +42,16 @@ class DeploymentManager implements ContainerAwareInterface
         $this->history->setContainer($this->container);
         $this->audit = new DeploymentAudit();
         $this->audit->setContainer($this->container);
+        $this->output = new NullOutput();
+    }
+
+    /**
+     * @param OutputInterface $output
+     * @return $this
+     */
+    public function setOutput(OutputInterface $output){
+        $this->output = $output;
+        return $this;
     }
 
     /**
@@ -108,5 +124,36 @@ class DeploymentManager implements ContainerAwareInterface
         ksort($deployments);
 
         return array_values($deployments);
+    }
+
+    /**
+     * Runs all undeployed deployments
+     */
+    public function runNextDeployments(){
+        if(!count($deployments = $this->getNextDeployments())){
+            $this->output->writeln("Nothing to deploy :-)");
+        }
+
+        try{
+            /* @var DeploymentInterface $deployment */
+            foreach($deployments as $deployment){
+                $this->output->writeln("Deploying \"{$deployment->getDeploymentId()}\"");
+                $deployment->deploy();
+                $this->getHistory()->addToHistory($deployment);
+                $this->getAudit()->addDeploymentToAudit($deployment);
+                $this->output->writeln("Finished deploying \"{$deployment->getDeploymentId()}\"");
+            }
+
+            $this->output->writeln("Deployment done");
+        }
+        catch (\Exception $e){
+            $deployment->setExecutionStatus(ExecutionStatusAwareInterface::EXECUTION_FAILED);
+            $deployment->getContext()->set('error', $e->getMessage());
+            $this->getAudit()->addDeploymentToAudit($deployment);
+
+            $this->output->writeln("Error while executing deployment \"{$deployment->getDeploymentId()}\"");
+            $this->output->writeln($e->getMessage());
+            $this->output->writeln($e->getTraceAsString());
+        }
     }
 }
