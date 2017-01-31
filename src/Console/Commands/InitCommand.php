@@ -3,9 +3,8 @@
 
 namespace Deployee\Console\Commands;
 
-use Deployee\Database\Adapter\Mysql\Table;
-use Deployee\Database\Adapter\MysqlAdapter;
-use Deployee\Database\DatabaseManager;
+use Deployee\Db\Adapter\Mysql\Table;
+use Deployee\Db\DbManager;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -25,9 +24,8 @@ class InitCommand extends AbstractCommand
      * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output){
-        /* @var DatabaseManager $dbm */
+        /* @var DbManager $dbm */
         $dbm = $this->container['db'];
-
         $this->createHistoryTable($dbm, $output);
         $this->createAuditTable($dbm, $output);
 
@@ -35,19 +33,13 @@ class InitCommand extends AbstractCommand
     }
 
     /**
-     * @param DatabaseManager $dbm
+     * @param DbManager $dbm
      * @param OutputInterface $output
      */
-    private function createHistoryTable(DatabaseManager $dbm, OutputInterface $output){
+    private function createHistoryTable(DbManager $dbm, OutputInterface $output){
         /* @var Table $table */
 
-        $table = $dbm->table('deployee_history', array(
-            'primary_key' => 'deployment_id',
-            'indices' => array(
-                'idx_deployment_id' => 'deployment_id',
-                'idx_instance' => 'instance'
-            )
-        ));
+        $table = $dbm->table('deployee_history');
         if($table->exists()){
             return;
         }
@@ -58,54 +50,48 @@ class InitCommand extends AbstractCommand
             ->addColumn('context', 'text')
             ->addColumn('deploydate', 'datetime')
             ->addColumn('instance', 'char', array('length' => 128))
-            ->addIndex('instance')
+            ->addIndex(array('instance'))
+            ->setPrimaryKey(array('deployment_id'))
             ->create();
     }
 
     /**
-     * @param DatabaseManager $dbm
+     * @param DbManager $dbm
      * @param OutputInterface $output
      */
-    private function createAuditTable(DatabaseManager $dbm, OutputInterface $output){
+    private function createAuditTable(DbManager $dbm, OutputInterface $output){
         /* @var Table $table */
 
-        $table = $dbm->table('deployee_task_audit', array(
-            'primary_key' => 'id',
-            'indices' => array(
-                'idx_deployment_id' => 'deployment_id',
-                'idx_instance' => 'instance'
-            )
-        ));
+        $table = $dbm->table('deployee_task_audit');
         if(!$table->exists()){
             $output->writeln("Creating table \"{$table->getName()}\"");
             $table
-                ->addColumn('id', 'integer', array('length' => 128, 'autoincrement' => true))
+                ->addColumn('id', 'int', array('length' => 128, 'autoincrement' => true))
                 ->addColumn('deployment_id', 'char', array('length' => 128))
-                ->addColumn('task_identifier', 'string', array('length' => 255))
+                ->addColumn('task_identifier', 'varchar', array('length' => 255))
                 ->addColumn('context', 'text')
-                ->addColumn('success', 'integer', array('length' => 1, 'signed' => false, 'default' => 0))
+                ->addColumn('success', 'int', array('length' => 1, 'signed' => false, 'default' => 0))
                 ->addColumn('deploydate', 'datetime')
                 ->addColumn('instance', 'char', array('length' => 128))
-                ->addIndex('instance')
-                ->addIndex('deployment_id')
+                ->addIndex(array('instance'))
+                ->addIndex(array('deployment_id'))
+                ->setPrimaryKey(array('id'))
                 ->create();
         }
 
-        $table = $dbm->table('deployee_deployment_audit', array(
-            'primary_key' => 'id'
-        ));
-
+        $table = $dbm->table('deployee_deployment_audit');
         if(!$table->exists()) {
             $output->writeln("Creating table \"{$table->getName()}\"");
             $table
-                ->addColumn('id', 'integer', array('length' => 128, 'autoincrement' => true))
+                ->addColumn('id', 'int', array('length' => 128, 'autoincrement' => true))
                 ->addColumn('deployment_id', 'char', array('length' => 128))
                 ->addColumn('context', 'text')
-                ->addColumn('success', 'integer', array('length' => 1, 'signed' => false, 'default' => 0))
+                ->addColumn('success', 'int', array('length' => 1, 'signed' => false, 'default' => 0))
                 ->addColumn('deploydate', 'datetime')
                 ->addColumn('instance', 'char', array('length' => 128))
-                ->addIndex('instance')
-                ->addIndex('deployment_id')
+                ->addIndex(array('instance'))
+                ->addIndex(array('deployment_id'))
+                ->setPrimaryKey(array('id'))
                 ->create();
         }
     }
