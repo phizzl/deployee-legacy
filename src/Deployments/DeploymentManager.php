@@ -5,9 +5,10 @@ namespace Deployee\Deployments;
 
 
 use Composer\Autoload\ClassLoader;
-use Deployee\Configuration;
+use Deployee\Application\Configuration\Configuration;
 use Deployee\ContainerAwareInterface;
 use Deployee\DIContainer;
+use Deployee\ExecutionStatusAwareInterface;
 use Deployee\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 

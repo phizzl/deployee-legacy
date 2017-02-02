@@ -2,10 +2,8 @@
 
 namespace Deployee\Subscriber;
 
-
-use Deployee\Database\Adapter\MysqlAdapter;
 use Deployee\DIContainer;
-use Deployee\Environment;
+use Deployee\Application\Configuration\Environment;
 use Deployee\Events\DatabaseCreateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

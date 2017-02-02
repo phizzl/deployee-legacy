@@ -1,6 +1,6 @@
 <?php
 
-namespace Deployee;
+namespace Deployee\Application\Configuration;
 
 class Environment
 {

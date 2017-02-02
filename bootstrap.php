@@ -1,11 +1,11 @@
 <?php
 
-use Deployee\Configuration;
+use Deployee\Application\Configuration\Configuration;
 use Deployee\Console\Application;
 use Deployee\Db\Adapter\MysqlAdapter;
 use Deployee\Db\DbManager;
 use Deployee\DIContainer;
-use Deployee\Environment;
+use Deployee\Application\Configuration\Environment;
 use Deployee\Events\ApplicationCreateEvent;
 use Deployee\Subscriber\ApplicationCommandSubscriber;
 use Deployee\Subscriber\DatabaseCreateEventSubscriber;
