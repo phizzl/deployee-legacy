@@ -5,8 +5,8 @@ namespace Deployee\Deployments;
 
 
 use Deployee\ContainerAwareInterface;
-use Deployee\Context;
-use Deployee\ContextContainingInterface;
+use Deployee\Contexts\Context;
+use Deployee\Contexts\ContextContainingInterface;
 use Deployee\Db\Adapter\Mysql\Table;
 use Deployee\Deployments\Tasks\Files\CreateFileTask;
 use Deployee\Deployments\Tasks\Files\RemoveFileTask;

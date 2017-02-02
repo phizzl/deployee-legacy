@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Deployee;
+namespace Deployee\Contexts;
 
 
 class Context
