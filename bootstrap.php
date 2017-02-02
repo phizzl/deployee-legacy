@@ -50,7 +50,6 @@ $container['console'] = function($c){
 /* @var EventDispatcher $eventDispatcher */
 $eventDispatcher = $container['eventdispatcher'];
 $eventDispatcher->addSubscriber(new ApplicationCommandSubscriber());
-$eventDispatcher->addSubscriber(new DatabaseCreateEventSubscriber());
 
 $defaultEnv = $container['config']->get('default_environment');
 if(php_sapi_name() == 'cli'){
