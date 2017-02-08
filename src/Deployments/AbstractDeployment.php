@@ -16,6 +16,7 @@ use Deployee\Deployments\Tasks\Files\SetFilePermissionTask;
 use Deployee\Deployments\Tasks\Files\UpdateFileTask;
 use Deployee\Deployments\Tasks\Mysql\ChangeTableTask;
 use Deployee\Deployments\Tasks\Mysql\CreateTableTask;
+use Deployee\Deployments\Tasks\Mysql\ExecFileTask;
 use Deployee\Deployments\Tasks\TaskExecutionException;
 use Deployee\Deployments\Tasks\TaskInterface;
 use Deployee\Descriptions\DeploymentDescription;
@@ -250,6 +251,14 @@ abstract class AbstractDeployment implements ContainerAwareInterface, Deployment
      */
     protected function changeTable(Table $table){
         return $this->addTask(new ChangeTableTask($table));
+    }
+
+    /**
+     * @param $filepath
+     * @return AbstractDeployment
+     */
+    protected function executeSqlFile($filepath){
+        return $this->addTask(new ExecFileTask($filepath, $this->container['db']));
     }
 
     /**

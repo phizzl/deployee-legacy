@@ -43,4 +43,12 @@ class DbManager
     public function getOne($sql, array $vars = null){
         return $this->adapter->getOne($sql, $vars);
     }
+
+    /**
+     * @param $sql
+     * @return mixed
+     */
+    public function execute($sql){
+        return $this->adapter->execute($sql);
+    }
 }

@@ -35,4 +35,10 @@ interface AdapterInterface
      * @param TableInterface $table
      */
     public function executeData(TableInterface $table);
+
+    /**
+     * @param string $sql
+     * @return mixed
+     */
+    public function execute($sql);
 }

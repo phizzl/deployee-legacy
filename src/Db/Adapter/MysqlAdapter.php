@@ -128,6 +128,15 @@ class MysqlAdapter implements AdapterInterface, ContainerAwareInterface
     }
 
     /**
+     * @param string $sql
+     * @return int
+     */
+    public function execute($sql){
+        return $this->getPdo()->exec($sql);
+    }
+
+
+    /**
      * @param \PDOStatement $stmt
      * @param array $vars
      */
