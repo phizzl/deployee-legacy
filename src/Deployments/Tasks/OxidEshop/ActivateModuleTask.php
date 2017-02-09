@@ -17,12 +17,19 @@ class ActivateModuleTask extends ExecuteInternalCommandTask
     private $moduleident;
 
     /**
+     * @var string|null
+     */
+    private $shopId;
+
+    /**
      * ActivateModuleTask constructor.
      * @param string $moduleident
+     * @param null $shopId
      */
-    public function __construct($moduleident){
+    public function __construct($moduleident, $shopId = null){
         $this->moduleident = $moduleident;
-        parent::__construct("oxid:module {$moduleident} activate");
+        $this->shopId = $shopId;
+        parent::__construct("oxid:module {$moduleident} activate" . ($this->shopId ? " --shopid={$this->shopId}" : ""));
     }
 
     /**
@@ -32,7 +39,7 @@ class ActivateModuleTask extends ExecuteInternalCommandTask
         $desc = parent::getDescription();
         $desc->describeInLang(
             TaskDescription::LANG_DE,
-            "Aktiviere das Modul \"{$this->moduleident}\""
+            "Aktiviere das Modul \"{$this->moduleident}\"" . ($this->shopId ? " im Shop \"{$this->shopId}\"" : "")
         );
 
         return $desc;

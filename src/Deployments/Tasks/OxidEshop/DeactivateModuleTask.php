@@ -14,12 +14,19 @@ class DeactivateModuleTask extends ExecuteInternalCommandTask
     private $moduleident;
 
     /**
-     * ActivateModuleTask constructor.
-     * @param string $moduleident
+     * @var string|null
      */
-    public function __construct($moduleident){
+    private $shopId;
+
+    /**
+     * DeactivateModuleTask constructor.
+     * @param string $moduleident
+     * @param null $shopId
+     */
+    public function __construct($moduleident, $shopId = null){
         $this->moduleident = $moduleident;
-        parent::__construct("oxid:module {$moduleident} deactivate");
+        $this->shopId = $shopId;
+        parent::__construct("oxid:module {$moduleident} deactivate" . ($this->shopId ? " --shopid={$this->shopId}" : ""));
     }
 
     /**
@@ -29,7 +36,7 @@ class DeactivateModuleTask extends ExecuteInternalCommandTask
         $desc = parent::getDescription();
         $desc->describeInLang(
             TaskDescription::LANG_DE,
-            "Deaktiviere das Modul \"{$this->moduleident}\""
+            "Deaktiviere das OXID eShop Modul \"{$this->moduleident}\"" . ($this->shopId ? " im Shop \"{$this->shopId}\"" : "")
         );
 
         return $desc;
