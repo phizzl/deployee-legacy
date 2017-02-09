@@ -47,4 +47,12 @@ class Environment
         }
         return $this->instanceId;
     }
+
+    /**
+     * @param string $name
+     * @return mixed|null
+     */
+    public function get($name){
+        return isset($this->environment[$name]) ? $this->environment[$name] : null;
+    }
 }

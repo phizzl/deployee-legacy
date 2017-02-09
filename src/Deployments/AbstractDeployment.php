@@ -17,6 +17,8 @@ use Deployee\Deployments\Tasks\Files\UpdateFileTask;
 use Deployee\Deployments\Tasks\Mysql\ChangeTableTask;
 use Deployee\Deployments\Tasks\Mysql\CreateTableTask;
 use Deployee\Deployments\Tasks\Mysql\ExecFileTask;
+use Deployee\Deployments\Tasks\OxidEshop\ActivateModuleTask;
+use Deployee\Deployments\Tasks\OxidEshop\DeactivateModuleTask;
 use Deployee\Deployments\Tasks\TaskExecutionException;
 use Deployee\Deployments\Tasks\TaskInterface;
 use Deployee\Descriptions\DeploymentDescription;
@@ -259,6 +261,22 @@ abstract class AbstractDeployment implements ContainerAwareInterface, Deployment
      */
     protected function executeSqlFile($filepath){
         return $this->addTask(new ExecFileTask($filepath, $this->container['db']));
+    }
+
+    /**
+     * @param string $moduleident
+     * @return AbstractDeployment
+     */
+    protected function oxidActivateModule($moduleident){
+        return $this->addTask(new ActivateModuleTask($moduleident));
+    }
+
+    /**
+     * @param string $moduleident
+     * @return AbstractDeployment
+     */
+    protected function oxidDeactivateModule($moduleident){
+        return $this->addTask(new DeactivateModuleTask($moduleident));
     }
 
     /**
