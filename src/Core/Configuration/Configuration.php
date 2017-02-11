@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Deployee\Application\Configuration;
+namespace Deployee\Core\Configuration;
 
 
 class Configuration

@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Deployee\Subscriber;
+namespace Deployee\Core\Subscriber;
 
-use Deployee\Console\Commands\CreateCommand;
-use Deployee\Console\Commands\DeployCommand;
-use Deployee\Console\Commands\DescribeCommand;
-use Deployee\Console\Commands\InitCommand;
-use Deployee\Console\Commands\MigrateCommand;
-use Deployee\Events\ApplicationCreateEvent;
+use Deployee\Core\Console\Commands\CreateCommand;
+use Deployee\Core\Console\Commands\DeployCommand;
+use Deployee\Core\Console\Commands\DescribeCommand;
+use Deployee\Core\Console\Commands\InitCommand;
+use Deployee\Core\Console\Commands\MigrateCommand;
+use Deployee\Core\Events\ApplicationCreateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ApplicationCommandSubscriber implements EventSubscriberInterface

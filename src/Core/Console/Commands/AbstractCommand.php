@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Deployee\Console\Commands;
+namespace Deployee\Core\Console\Commands;
 
 
 

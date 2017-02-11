@@ -4,8 +4,8 @@
 namespace Deployee\Deployments\Tasks\Mysql;
 
 
-use Deployee\Db\Adapter\Mysql\Table;
-use Deployee\Db\DbManager;
+use Deployee\Core\Database\Adapter\Mysql\Table;
+use Deployee\Core\Database\DbManager;
 use Deployee\Deployments\Tasks\AbstractTask;
 use Deployee\Descriptions\TaskDescription;
 

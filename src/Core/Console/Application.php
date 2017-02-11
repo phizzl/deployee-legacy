@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Deployee\Console;
+namespace Deployee\Core\Console;
 
 
 use Deployee\ContainerAwareInterface;

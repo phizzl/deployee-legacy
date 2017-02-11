@@ -1,14 +1,14 @@
 <?php
 
-use Deployee\Application\Configuration\Configuration;
-use Deployee\Console\Application;
-use Deployee\Db\Adapter\MysqlAdapter;
-use Deployee\Db\DbManager;
+use Deployee\Core\Configuration\Configuration;
+use Deployee\Core\Console\Application;
+use Deployee\Core\Database\Adapter\MysqlAdapter;
+use Deployee\Core\Database\DbManager;
 use Deployee\DIContainer;
-use Deployee\Application\Configuration\Environment;
-use Deployee\Events\ApplicationCreateEvent;
-use Deployee\Subscriber\ApplicationCommandSubscriber;
-use Deployee\Subscriber\DatabaseCreateEventSubscriber;
+use Deployee\Core\Configuration\Environment;
+use Deployee\Core\Events\ApplicationCreateEvent;
+use Deployee\Core\Subscriber\ApplicationCommandSubscriber;
+use Deployee\Core\Subscriber\DatabaseCreateEventSubscriber;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Console\Input\ArgvInput;

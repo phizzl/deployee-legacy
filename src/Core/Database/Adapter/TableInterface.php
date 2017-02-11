@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Deployee\Db\Adapter;
+namespace Deployee\Core\Database\Adapter;
 
 
 interface TableInterface extends \Phizzl\QueryGenerate\Tables\TableInterface

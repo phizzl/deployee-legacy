@@ -5,9 +5,9 @@ namespace Deployee\Deployments;
 
 
 use Deployee\ContainerAwareInterface;
-use Deployee\Contexts\Context;
-use Deployee\Contexts\ContextContainingInterface;
-use Deployee\Db\Adapter\Mysql\Table;
+use Deployee\Core\Contexts\Context;
+use Deployee\Core\Contexts\ContextContainingInterface;
+use Deployee\Core\Database\Adapter\Mysql\Table;
 use Deployee\Deployments\Tasks\Files\CreateFileTask;
 use Deployee\Deployments\Tasks\Files\RemoveFileTask;
 use Deployee\Deployments\Tasks\Files\SetFileGroupTask;
@@ -19,6 +19,7 @@ use Deployee\Deployments\Tasks\Mysql\CreateTableTask;
 use Deployee\Deployments\Tasks\Mysql\ExecFileTask;
 use Deployee\Deployments\Tasks\OxidEshop\ActivateModuleTask;
 use Deployee\Deployments\Tasks\OxidEshop\DeactivateModuleTask;
+use Deployee\Deployments\Tasks\OxidEshop\SetConfigTask;
 use Deployee\Deployments\Tasks\TaskExecutionException;
 use Deployee\Deployments\Tasks\TaskInterface;
 use Deployee\Descriptions\DeploymentDescription;
@@ -277,6 +278,17 @@ abstract class AbstractDeployment implements ContainerAwareInterface, Deployment
      */
     protected function oxidDeactivateModule($moduleident){
         return $this->addTask(new DeactivateModuleTask($moduleident));
+    }
+
+    /**
+     * @param string $name
+     * @param string $type
+     * @param mixed $value
+     * @param string|null $module
+     * @return AbstractDeployment
+     */
+    protected function oxidSetConfig($name, $type, $value, $module = null){
+        return $this->addTask(new SetConfigTask($type, $name, $value, $module));
     }
 
     /**

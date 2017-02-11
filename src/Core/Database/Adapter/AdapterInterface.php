@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Deployee\Db\Adapter;
+namespace Deployee\Core\Database\Adapter;
 
 
 interface AdapterInterface

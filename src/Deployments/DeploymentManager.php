@@ -5,7 +5,7 @@ namespace Deployee\Deployments;
 
 
 use Composer\Autoload\ClassLoader;
-use Deployee\Application\Configuration\Configuration;
+use Deployee\Core\Configuration\Configuration;
 use Deployee\ContainerAwareInterface;
 use Deployee\DIContainer;
 use Deployee\ExecutionStatusAwareInterface;

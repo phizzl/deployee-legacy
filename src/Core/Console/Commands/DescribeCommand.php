@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Deployee\Console\Commands;
+namespace Deployee\Core\Console\Commands;
 
 use Deployee\Database\Adapter\Mysql\Table;
 use Deployee\Database\Adapter\MysqlAdapter;

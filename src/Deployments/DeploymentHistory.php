@@ -5,7 +5,7 @@ namespace Deployee\Deployments;
 
 use Deployee\ContainerAwareInterface;
 use Deployee\ContextContainingInterface;
-use Deployee\Db\DbManager;
+use Deployee\Core\Database\DbManager;
 use Deployee\DIContainer;
 
 class DeploymentHistory implements ContainerAwareInterface

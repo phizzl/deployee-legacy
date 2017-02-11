@@ -3,8 +3,8 @@
 namespace Deployee\Deployments\Tasks;
 
 
-use Deployee\Contexts\Context;
-use Deployee\Contexts\ContextContainingInterface;
+use Deployee\Core\Contexts\Context;
+use Deployee\Core\Contexts\ContextContainingInterface;
 use Deployee\Deployments\DescribableInterface;
 use Deployee\Descriptions\TaskDescription;
 

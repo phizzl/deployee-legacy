@@ -1,9 +1,9 @@
 <?php
 
-namespace Deployee\Db;
+namespace Deployee\Core\Database;
 
 
-use Deployee\Db\Adapter\AdapterInterface;
+use Deployee\Core\Database\Adapter\AdapterInterface;
 
 class DbManager
 {

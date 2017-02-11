@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Deployee\Console\Commands;
+namespace Deployee\Core\Console\Commands;
 
-use Deployee\Db\Adapter\Mysql\Table;
-use Deployee\Db\DbManager;
+use Deployee\Core\Database\Adapter\Mysql\Table;
+use Deployee\Core\Database\DbManager;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

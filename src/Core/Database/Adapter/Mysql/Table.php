@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Deployee\Db\Adapter\Mysql;
+namespace Deployee\Core\Database\Adapter\Mysql;
 
 
-use Deployee\Db\Adapter\MysqlAdapter;
-use Deployee\Db\Adapter\TableInterface;
+use Deployee\Core\Database\Adapter\MysqlAdapter;
+use Deployee\Core\Database\Adapter\TableInterface;
 
 class Table extends \Phizzl\QueryGenerate\Tables\Table implements TableInterface
 {

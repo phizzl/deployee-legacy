@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Deployee\Db\Adapter;
+namespace Deployee\Core\Database\Adapter;
 
 use Deployee\ContainerAwareInterface;
-use Deployee\Db\Adapter\Mysql\Factory;
-use Deployee\Db\Adapter\Mysql\Table;
+use Deployee\Core\Database\Adapter\Mysql\Factory;
+use Deployee\Core\Database\Adapter\Mysql\Table;
 use Deployee\DIContainer;
 use Phizzl\QueryGenerate\Drivers\MysqlDriver;
 use Phizzl\QueryGenerate\Drivers\MysqlQueryEscape;

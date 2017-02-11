@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Deployee\Events;
+namespace Deployee\Core\Events;
 
 use Deployee\DIContainer;
 use Symfony\Component\EventDispatcher\Event;

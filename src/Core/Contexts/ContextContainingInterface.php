@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Deployee\Contexts;
+namespace Deployee\Core\Contexts;
 
 
 interface ContextContainingInterface

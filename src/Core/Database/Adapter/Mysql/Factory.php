@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Deployee\Db\Adapter\Mysql;
+namespace Deployee\Core\Database\Adapter\Mysql;
 
-use Deployee\Db\Adapter\MysqlAdapter;
+use Deployee\Core\Database\Adapter\MysqlAdapter;
 
 class Factory extends \Phizzl\QueryGenerate\Factory\Factory
 {
