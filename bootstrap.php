@@ -8,7 +8,6 @@ use Deployee\DIContainer;
 use Deployee\Core\Configuration\Environment;
 use Deployee\Core\Events\ApplicationCreateEvent;
 use Deployee\Core\Subscriber\ApplicationCommandSubscriber;
-use Deployee\Core\Subscriber\DatabaseCreateEventSubscriber;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Console\Input\ArgvInput;

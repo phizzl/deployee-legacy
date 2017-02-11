@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Deployee\Console\Commands\OxidEshop;
+namespace Deployee\Core\Console\Commands\OxidEshop;
 
-use Deployee\Application\Configuration\Environment;
-use Deployee\Console\Commands\AbstractCommand;
+use Deployee\Core\Configuration\Environment;
+use Deployee\Core\Console\Commands\AbstractCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
