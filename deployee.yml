@@ -3,7 +3,7 @@ jira: ~
 environments:
   test:
     oxid_path: D:/xampp/php_5.6.15/htdocs/ce/source
-    deployments: ~/deployments
+    deployments: ~/examples
     database:
       mysql:
         host: localhost

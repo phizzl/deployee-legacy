@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d269d6c06051daaf0745267a1187b94",
+    "content-hash": "fc2a594e8cf7d4e8cf8ef9fe4f129fb2",
     "packages": [
         {
             "name": "phizzl/querygenerate",
