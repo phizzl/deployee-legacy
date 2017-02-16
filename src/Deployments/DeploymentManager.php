@@ -44,10 +44,11 @@ class DeploymentManager implements ContainerAwareInterface
     public function setContainer(DIContainer $container){
         $this->container = $container;
         $this->history = new History();
-        $this->history->setContainer($this->container);
         $this->audit = new Audit();
-        $this->audit->setContainer($this->container);
         $this->output = new NullOutput();
+
+        $this->container['dependencyresolver']->resolve($this->history);
+        $this->container['dependencyresolver']->resolve($this->audit);
     }
 
     /**
