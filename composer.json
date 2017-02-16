@@ -15,9 +15,7 @@
       "url": "https://github.com/phizzl/querygenerate"
     }
   ],
-  "config": {
-    "bin-dir": "bin"
-  },
+  "bin": ["bin/deployee"],
   "name": "phizzl/deployee",
   "version": "0.0.1",
   "dist": {
