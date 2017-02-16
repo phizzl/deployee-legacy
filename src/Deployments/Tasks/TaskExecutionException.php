@@ -3,7 +3,7 @@
 namespace Deployee\Deployments\Tasks;
 
 
-use Deployee\Context;
+use Deployee\Core\Contexts\Context;
 
 class TaskExecutionException extends \Exception
 {
