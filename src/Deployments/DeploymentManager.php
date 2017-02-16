@@ -7,12 +7,9 @@ namespace Deployee\Deployments;
 use Composer\Autoload\ClassLoader;
 use Deployee\Core\Configuration\Configuration;
 use Deployee\ContainerAwareInterface;
-use Deployee\Core\Contexts\Context;
 use Deployee\Core\Contexts\ContextContainingInterface;
-use Deployee\Deployments\Tasks\TaskExecutionException;
 use Deployee\Deployments\Tasks\TaskInterface;
 use Deployee\DIContainer;
-use Deployee\ExecutionStatusAwareInterface;
 use Deployee\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
