@@ -3,10 +3,9 @@
 
 namespace Deployee\Deployments\Tasks\Mysql;
 
-
-use Deployee\Core\Database\Adapter\Mysql\Table;
 use Deployee\Core\Database\DbManager;
 use Deployee\Deployments\Tasks\AbstractTask;
+use Deployee\Deployments\Tasks\TaskExecutionException;
 use Deployee\Descriptions\TaskDescription;
 
 class ExecFileTask extends AbstractTask
@@ -37,7 +36,7 @@ class ExecFileTask extends AbstractTask
     public function execute(){
         if(!is_file($this->filepath)
             || !is_readable($this->filepath)){
-            throw new \Exception("The SQL file \"{$this->filepath}\" can not be read!");
+            throw new TaskExecutionException("The SQL file \"{$this->filepath}\" can not be read!");
         }
 
         $this->dbm->execute(file_get_contents($this->filepath));
