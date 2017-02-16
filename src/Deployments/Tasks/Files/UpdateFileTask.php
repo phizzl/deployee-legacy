@@ -3,6 +3,7 @@
 
 namespace Deployee\Deployments\Tasks\Files;
 
+use Deployee\Deployments\Tasks\TaskExecutionException;
 use Deployee\Descriptions\TaskDescription;
 
 class UpdateFileTask extends AbstractFileTask
@@ -12,7 +13,7 @@ class UpdateFileTask extends AbstractFileTask
      */
     public function execute(){
         if(!file_exists($this->target)){
-            throw new \Exception("File does not exist \"{$this->target}\"");
+            throw new TaskExecutionException("File does not exist \"{$this->target}\"");
         }
 
         parent::execute();

@@ -2,6 +2,8 @@
 
 namespace Deployee\Deployments\Tasks\Files;
 
+use Deployee\Deployments\Tasks\TaskExecutionException;
+
 class ObjectPermission
 {
     /**
@@ -31,7 +33,7 @@ class ObjectPermission
      */
     public function applyTo($path){
         if(!chmod($path, $this->permission)){
-            throw new \Exception("Unable to set permissions to \"$path\"");
+            throw new TaskExecutionException("Unable to set permissions to \"$path\"");
         }
 
         if(!$this->recursive
@@ -41,7 +43,7 @@ class ObjectPermission
 
         foreach(new \DirectoryIterator($path) as $item){
             if(!$item->isDot()){
-                $this->applyTo($item->getRealPath(), $this->recursive);
+                $this->applyTo($item->getRealPath());
             }
         }
 

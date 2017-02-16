@@ -5,6 +5,7 @@ namespace Deployee\Deployments\Tasks\Files;
 
 
 use Deployee\Deployments\Tasks\AbstractTask;
+use Deployee\Descriptions\TaskDescription;
 
 class SetFilePermissionTask extends AbstractTask
 {
@@ -55,7 +56,7 @@ class SetFilePermissionTask extends AbstractTask
     }
 
     /**
-     * @return \Deployee\Deployments\Tasks\TaskDescription
+     * @return TaskDescription
      */
     public function getDescription(){
         $desc = parent::getDescription();

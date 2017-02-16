@@ -5,6 +5,7 @@ namespace Deployee\Deployments\Tasks\Files;
 
 
 
+use Deployee\Deployments\Tasks\TaskExecutionException;
 use Deployee\Descriptions\TaskDescription;
 
 class CreateFileTask extends AbstractFileTask
@@ -14,7 +15,7 @@ class CreateFileTask extends AbstractFileTask
      */
     public function execute(){
         if(file_exists($this->target)){
-            throw new \Exception("File already exist \"{$this->target}\"");
+            throw new TaskExecutionException("File already exist \"{$this->target}\"");
         }
 
         parent::execute();

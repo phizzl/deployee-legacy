@@ -3,8 +3,9 @@
 namespace Deployee\Deployments\Tasks\Files;
 
 use Deployee\Deployments\Tasks\AbstractTask;
+use Deployee\Deployments\Tasks\TaskExecutionException;
 
- class AbstractFileTask extends AbstractTask
+class AbstractFileTask extends AbstractTask
 {
     /**
      * @var string
@@ -34,7 +35,7 @@ use Deployee\Deployments\Tasks\AbstractTask;
      */
     public function execute(){
         if(!file_put_contents($this->target, $this->contents)){
-            throw new \Exception("Could not write file \"{$this->target}\"");
+            throw new TaskExecutionException("Could not write file \"{$this->target}\"");
         }
     }
 

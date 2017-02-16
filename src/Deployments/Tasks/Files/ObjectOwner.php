@@ -2,6 +2,8 @@
 
 namespace Deployee\Deployments\Tasks\Files;
 
+use Deployee\Deployments\Tasks\TaskExecutionException;
+
 class ObjectOwner
 {
     /**
@@ -37,11 +39,11 @@ class ObjectOwner
      */
     public function applyTo($path){
         if($this->owner && !chown($path, $this->owner)){
-            throw new \Exception("Unable to change owner to \"{$this->owner}\" for \"$path\"");
+            throw new TaskExecutionException("Unable to change owner to \"{$this->owner}\" for \"$path\"");
         }
 
         if($this->group && !chgrp($path, $this->group)){
-            throw new \Exception("Unable to change group to \"{$this->group}\" for \"$path\"");
+            throw new TaskExecutionException("Unable to change group to \"{$this->group}\" for \"$path\"");
         }
 
         if(!$this->recursive
@@ -51,7 +53,7 @@ class ObjectOwner
 
         foreach(new \DirectoryIterator($path) as $item){
             if(!$item->isDot()){
-                $this->applyTo($item->getRealPath(), $this->recursive);
+                $this->applyTo($item->getRealPath());
             }
         }
 

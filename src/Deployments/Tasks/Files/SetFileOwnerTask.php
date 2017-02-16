@@ -56,7 +56,7 @@ class SetFileOwnerTask extends AbstractTask
     }
 
     /**
-     * @return \Deployee\Deployments\Tasks\TaskDescription
+     * @return TaskDescription
      */
     public function getDescription(){
         $desc = parent::getDescription();

@@ -6,6 +6,7 @@ namespace Deployee\Deployments\Tasks\Files;
 
 
 use Deployee\Deployments\Tasks\AbstractTask;
+use Deployee\Deployments\Tasks\TaskExecutionException;
 use Deployee\Descriptions\TaskDescription;
 
 class RemoveFileTask extends AbstractTask
@@ -29,11 +30,11 @@ class RemoveFileTask extends AbstractTask
      */
     public function execute(){
         if(!file_exists($this->target)){
-            throw new \Exception("The file does not exist \"{$this->target}\"");
+            throw new TaskExecutionException("The file does not exist \"{$this->target}\"");
         }
 
         if(!unlink($this->target)){
-            throw new \Exception("Could nor remove file \"{$this->target}\"");
+            throw new TaskExecutionException("Could nor remove file \"{$this->target}\"");
         }
     }
 
