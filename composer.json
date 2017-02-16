@@ -15,5 +15,9 @@
       "url": "https://github.com/phizzl/querygenerate"
     }
   ],
-  "bin": ["bin/delpoyee"]
+  "bin": ["bin/delpoyee"],
+  "dist": {
+    "url": "https://github.com/phizzl/deployee/archive/master.zip",
+    "type": "zip"
+  }
 }
