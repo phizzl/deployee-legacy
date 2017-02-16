@@ -15,6 +15,6 @@ class ExecuteInternalCommandTask extends ExecuteCommandTask
      * @param string$command
      */
     public function __construct($command){
-        parent::__construct("php " . BASEDIR . "/scripts/internal.php " . $command);
+        parent::__construct("php " . DEPLOYEE_BASEDIR . "/scripts/deployee_internals.php " . $command);
     }
 }

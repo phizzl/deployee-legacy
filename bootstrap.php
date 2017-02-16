@@ -15,7 +15,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 
-define('BASEDIR', __DIR__);
+define('DEPLOYEE_BASEDIR', __DIR__);
 
 $autoloadFiles = [
     __DIR__ . '/vendor/autoload.php',
