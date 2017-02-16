@@ -4,10 +4,6 @@
 namespace Deployee\Deployments\Tasks\CommandLine;
 
 
-
-use Deployee\Deployments\Tasks\AbstractTask;
-use Deployee\Descriptions\TaskDescription;
-
 class ExecuteInternalCommandTask extends ExecuteCommandTask
 {
     /**
