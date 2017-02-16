@@ -17,7 +17,9 @@ use Symfony\Component\Console\Input\InputOption;
 
 define('BASEDIR', __DIR__);
 
-$loader = require __DIR__ . '/vendor/autoload.php';
+if(!class_exists('\Composer\Autoload\ClassLoader')) {
+    $loader = require __DIR__ . '/vendor/autoload.php';
+}
 
 $container = new DIContainer();
 
