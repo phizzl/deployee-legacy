@@ -17,11 +17,11 @@ use Symfony\Component\Console\Input\InputOption;
 
 define('BASEDIR', __DIR__);
 
-
 $autoloadFiles = [
     __DIR__ . '/vendor/autoload.php',
     __DIR__ . '/../../autoload.php'
 ];
+
 foreach ($autoloadFiles as $autoloadFile) {
     if (file_exists($autoloadFile)) {
         $loader = require_once $autoloadFile;
@@ -29,10 +29,7 @@ foreach ($autoloadFiles as $autoloadFile) {
     }
 }
 
-$loader = require __DIR__ . '/vendor/autoload.php';
-
 $container = new DIContainer();
-
 $container['loader'] = $loader;
 $container['config'] = function(){
     $directories = [getcwd(), getcwd() . DIRECTORY_SEPARATOR . 'config'];
