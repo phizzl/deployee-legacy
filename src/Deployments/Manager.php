@@ -13,7 +13,7 @@ use Deployee\DIContainer;
 use Deployee\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class DeploymentManager implements ContainerAwareInterface
+class Manager implements ContainerAwareInterface
 {
     /**
      * @var DIContainer

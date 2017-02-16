@@ -3,7 +3,7 @@
 
 namespace Deployee\Core\Console\Commands;
 
-use Deployee\Deployments\DeploymentManager;
+use Deployee\Deployments\Manager;
 use Deployee\Descriptions\DescribableInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -24,9 +24,9 @@ class DescribeCommand extends AbstractCommand
      * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output){
-        $deploymentManager = new DeploymentManager();
-        $deploymentManager->setContainer($this->container);
-        $deployments = $deploymentManager->getNextDeployments();
+        $Manager = new Manager();
+        $Manager->setContainer($this->container);
+        $deployments = $Manager->getNextDeployments();
 
         foreach($deployments as $deployment){
             $output->writeln("Deploy class: ". get_class($deployment) . "\n");
