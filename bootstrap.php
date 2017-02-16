@@ -17,16 +17,35 @@ use Symfony\Component\Console\Input\InputOption;
 
 define('BASEDIR', __DIR__);
 
-if(!class_exists('\Composer\Autoload\ClassLoader')) {
-    $loader = require __DIR__ . '/vendor/autoload.php';
+
+$autoloadFiles = [
+    __DIR__ . '/vendor/autoload.php',
+    __DIR__ . '/../../autoload.php'
+];
+foreach ($autoloadFiles as $autoloadFile) {
+    if (file_exists($autoloadFile)) {
+        $loader = require_once $autoloadFile;
+        break;
+    }
 }
+
+$loader = require __DIR__ . '/vendor/autoload.php';
 
 $container = new DIContainer();
 
 $container['loader'] = $loader;
 $container['config'] = function(){
-    $configfile = __DIR__.'/config.yml';
-    if(!is_readable($configfile)
+    $directories = [getcwd(), getcwd() . DIRECTORY_SEPARATOR . 'config'];
+    $configfile = null;
+    foreach($directories as $dir){
+        if(file_exists($dir . DIRECTORY_SEPARATOR . "deployee.yml")){
+            $configfile = $dir . DIRECTORY_SEPARATOR . "deployee.yml";
+            break;
+        }
+    }
+
+    if(!$configfile
+        || !is_readable($configfile)
         || !($parameter = Yaml::parse(file_get_contents($configfile)))){
         throw new Exception("Could not find configuration!");
     }
