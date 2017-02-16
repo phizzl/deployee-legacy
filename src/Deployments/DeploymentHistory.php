@@ -4,7 +4,7 @@ namespace Deployee\Deployments;
 
 
 use Deployee\ContainerAwareInterface;
-use Deployee\ContextContainingInterface;
+use Deployee\Core\Contexts\ContextContainingInterface;
 use Deployee\Core\Database\DbManager;
 use Deployee\DIContainer;
 

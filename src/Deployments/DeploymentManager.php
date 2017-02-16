@@ -7,6 +7,10 @@ namespace Deployee\Deployments;
 use Composer\Autoload\ClassLoader;
 use Deployee\Core\Configuration\Configuration;
 use Deployee\ContainerAwareInterface;
+use Deployee\Core\Contexts\Context;
+use Deployee\Core\Contexts\ContextContainingInterface;
+use Deployee\Deployments\Tasks\TaskExecutionException;
+use Deployee\Deployments\Tasks\TaskInterface;
 use Deployee\DIContainer;
 use Deployee\ExecutionStatusAwareInterface;
 use Deployee\NullOutput;
@@ -69,7 +73,9 @@ class DeploymentManager implements ContainerAwareInterface
         return $this->audit;
     }
 
-
+    /**
+     * @return array
+     */
     public function getNextDeployments(){
         /* @var Configuration $config */
         $config = $this->container['config'];
@@ -114,11 +120,9 @@ class DeploymentManager implements ContainerAwareInterface
 
             $fileParts = explode('_', $className);
             unset($fileParts[0]);
-            /* @var AbstractDeployment $deployment */
-            $deployment = new $className($this->getAudit());
-            if($deployment instanceof ContainerAwareInterface){
-                $deployment->setContainer($this->container);
-            }
+            /* @var DeploymentInterface $deployment */
+            $deployment = new $className();
+            $this->container['dependencyresolver']->resolve($deployment);
             $deployments[implode('_', $fileParts)] = $deployment;
         }
 
@@ -133,28 +137,58 @@ class DeploymentManager implements ContainerAwareInterface
     public function runNextDeployments(){
         if(!count($deployments = $this->getNextDeployments())){
             $this->output->writeln("Nothing to deploy :-)");
+            return true;
         }
 
-        try{
-            /* @var DeploymentInterface $deployment */
-            foreach($deployments as $deployment){
-                $this->output->writeln("Deploying \"{$deployment->getDeploymentId()}\"");
-                $deployment->deploy();
-                $this->getHistory()->addToHistory($deployment);
-                $this->getAudit()->addDeploymentToAudit($deployment);
-                $this->output->writeln("Finished deploying \"{$deployment->getDeploymentId()}\"");
+        /* @var DeploymentInterface $deployment */
+        foreach($deployments as $deployment){
+            if(!$this->runTasks($deployment)){
+                $this->output->writeln("Deployment failed!");
+                return false;
             }
 
-            $this->output->writeln("Deployment done");
+            $this->getHistory()->addToHistory($deployment);
         }
-        catch (\Exception $e){
-            $deployment->setExecutionStatus(ExecutionStatusAwareInterface::EXECUTION_FAILED);
-            $deployment->getContext()->set('error', $e->getMessage());
-            $this->getAudit()->addDeploymentToAudit($deployment);
 
-            $this->output->writeln("Error while executing deployment \"{$deployment->getDeploymentId()}\"");
-            $this->output->writeln($e->getMessage());
-            $this->output->writeln($e->getTraceAsString());
+        $this->output->writeln("Deployment succeeded!");
+        return true;
+    }
+
+    private function runTasks(DeploymentInterface $deployment){
+        $this->output->writeln("Deploying \"{$deployment->getDeploymentId()}\"");
+
+        /* @var TaskInterface $task */
+        foreach($deployment->getTasks() as $task){
+            try {
+                $this->output->writeln("\tExecuting task \"{$task->getTaskIdentifier()}\"");
+                $task->execute();
+                $this->getAudit()->addTaskToAudit($deployment, $task, DeploymentAudit::STATUS_OK);
+            }
+            catch(\Exception $e){
+                foreach(array($task, $deployment) as $obj){
+                    if($obj instanceof ContextContainingInterface){
+                        $obj->getContext()->set('error', array(
+                            "message" => $e->getMessage(),
+                            "file" => $e->getFile(),
+                            "line" => $e->getLine(),
+                            "code" => $e->getCode()
+                        ));
+                    }
+                }
+
+                $this->output->writeln("\tTask \"{$task->getTaskIdentifier()}\" failed!");
+                $this->output->writeln($e->getMessage(), OutputInterface::VERBOSITY_VERBOSE);
+                $this->output->writeln($e->getTraceAsString(), OutputInterface::VERBOSITY_DEBUG);
+
+                $this->getAudit()->addTaskToAudit($deployment, $task, DeploymentAudit::STATUS_FAILED);
+                $this->getAudit()->addDeploymentToAudit($deployment, DeploymentAudit::STATUS_FAILED);
+                return false;
+            }
         }
+
+        $this->output->writeln("Finished deploying \"{$deployment->getDeploymentId()}\"");
+        $this->getAudit()->addDeploymentToAudit($deployment, DeploymentAudit::STATUS_FAILED);
+
+        return true;
     }
 }

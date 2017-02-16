@@ -12,6 +12,10 @@ use Deployee\DIContainer;
 
 class DeploymentAudit implements ContainerAwareInterface
 {
+    const STATUS_FAILED = 0;
+
+    const STATUS_OK = 1;
+
     /**
      * @var DIContainer
      */
@@ -27,8 +31,9 @@ class DeploymentAudit implements ContainerAwareInterface
     /**
      * @param DeploymentInterface $deployment
      * @param TaskInterface $task
+     * @param int $status
      */
-    public function addTaskToAudit(DeploymentInterface $deployment, TaskInterface $task){
+    public function addTaskToAudit(DeploymentInterface $deployment, TaskInterface $task, $status){
         $now = new \DateTime();
         $auditTable = $this->getDatabaseManager()->table('deployee_task_audit');
         $auditTable->addInsertData(array(
@@ -36,15 +41,16 @@ class DeploymentAudit implements ContainerAwareInterface
             'task_identifier' => $task->getTaskIdentifier(),
             'context' => $task instanceof ContextContainingInterface ? json_encode($task->getContext()->getContents()) : '',
             'deploydate' => $now->format(\DateTime::ATOM),
-            'success' => $task->getExecutionStatus(),
+            'success' => (int)$status,
             'instance' => $this->container['config']->getEnvironment()->getInstanceId()
         ))->saveData();
     }
 
     /**
      * @param DeploymentInterface $deployment
+     * @param int $status
      */
-    public function addDeploymentToAudit(DeploymentInterface $deployment){
+    public function addDeploymentToAudit(DeploymentInterface $deployment, $status){
         $now = new \DateTime();
         $auditTable = $this->getDatabaseManager()->table('deployee_deployment_audit');
         $auditTable->addInsertData(array(
@@ -53,7 +59,7 @@ class DeploymentAudit implements ContainerAwareInterface
                 ? json_encode($deployment->getContext()->getContents())
                 : '',
             'deploydate' => $now->format(\DateTime::ATOM),
-            'success' => $deployment->getExecutionStatus(),
+            'success' => (int)$status,
             'instance' => $this->container['config']->getEnvironment()->getInstanceId()
         ))->saveData();
     }

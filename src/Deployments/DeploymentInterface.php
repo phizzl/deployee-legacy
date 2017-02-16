@@ -11,12 +11,7 @@ interface DeploymentInterface extends ExecutionStatusAwareInterface
     /**
      * Perform deployment
      */
-    public function deploy();
-
-    /**
-     * Perform rollback
-     */
-    public function rollback();
+    public function getTasks();
 
     /**
      * @return string

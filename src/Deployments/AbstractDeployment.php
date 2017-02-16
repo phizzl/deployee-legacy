@@ -39,11 +39,6 @@ abstract class AbstractDeployment implements ContainerAwareInterface, Deployment
     protected $tasks;
 
     /**
-     * @var
-     */
-    protected $audit;
-
-    /**
      * @var Context
      */
     protected $context;
@@ -56,10 +51,9 @@ abstract class AbstractDeployment implements ContainerAwareInterface, Deployment
     /**
      * AbstractDeployment constructor.
      */
-    public function __construct(DeploymentAudit $audit){
+    public function __construct(){
         $this->tasks = array();
         $this->context = new Context();
-        $this->audit = $audit;
 
     }
 
@@ -92,34 +86,6 @@ abstract class AbstractDeployment implements ContainerAwareInterface, Deployment
     }
 
     /**
-     * Setup
-     */
-    public function setUp(){
-
-    }
-
-    /**
-     * Tear down
-     */
-    public function tearDown(){
-
-    }
-
-    /**
-     * @param TaskInterface $task
-     */
-    public function beforeTask(TaskInterface $task){
-
-    }
-
-    /**
-     * @param TaskInterface $task
-     */
-    public function afterTask(TaskInterface $task){
-        $this->audit->addTaskToAudit($this, $task);
-    }
-
-    /**
      * @return string
      */
     public function getDeploymentId(){
@@ -134,38 +100,9 @@ abstract class AbstractDeployment implements ContainerAwareInterface, Deployment
     /**
      * @inheritdoc
      */
-    public function deploy(){
-        $this->setUp();
-
+    public function getTasks(){
         $this->configure();
-        foreach($this->tasks as $task){
-            $this->beforeTask($task);
-            $this->executeOneTask($task);
-            $this->afterTask($task);
-        }
-
-        $this->tearDown();
-    }
-
-    /**
-     * @param TaskInterface $task
-     * @throws TaskExecutionException
-     */
-    private function executeOneTask(TaskInterface $task){
-        try{
-            $task->execute();
-            $task->setExecutionStatus(TaskInterface::EXECUTION_SUCCESS);
-        }
-        catch(\Exception $e){
-            $task->setExecutionStatus(TaskInterface::EXECUTION_FAILED);
-            if($task instanceof ContextContainingInterface){
-                $task->getContext()->set('error', $e->getMessage());
-            }
-            $newEx = new TaskExecutionException($e->getMessage(), $e->getCode(), $e);
-            $newEx->setContext(new Context(array('task' => $task)));
-            $this->audit->addTaskToAudit($this, $task);
-            throw $newEx;
-        }
+        return $this->tasks;
     }
 
     /**
