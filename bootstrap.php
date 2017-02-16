@@ -4,6 +4,7 @@ use Deployee\Core\Configuration\Configuration;
 use Deployee\Core\Console\Application;
 use Deployee\Core\Database\Adapter\MysqlAdapter;
 use Deployee\Core\Database\DbManager;
+use Deployee\Core\DependencyResolver;
 use Deployee\DIContainer;
 use Deployee\Core\Configuration\Environment;
 use Deployee\Core\Events\ApplicationCreateEvent;
@@ -21,7 +22,7 @@ $loader = require __DIR__ . '/vendor/autoload.php';
 $container = new DIContainer();
 
 $container['loader'] = $loader;
-$container['config'] = function($c){
+$container['config'] = function(){
     $configfile = __DIR__.'/config.yml';
     if(!is_readable($configfile)
         || !($parameter = Yaml::parse(file_get_contents($configfile)))){
@@ -31,13 +32,18 @@ $container['config'] = function($c){
     return new Configuration($parameter);
 };
 
-$container['eventdispatcher'] = function($c){
+$container['eventdispatcher'] = function(){
     return new Symfony\Component\EventDispatcher\EventDispatcher();
+};
+
+// Dependency resolver
+$container['dependencyresolver'] = function($c){
+    return new DependencyResolver($c);
 };
 
 $container['console'] = function($c){
     $console = new Application('Deployee', '0.0.1');
-    $console->setContainer($c);
+    $c['dependencyresolver']->resolve($console);
 
     $event = new ApplicationCreateEvent($c);
     $event->setConsole($console);
@@ -77,6 +83,7 @@ if(!isset($envs[ENVIRONMENT])){
 
 $container['config']->setEnvironment(new Environment($envs[ENVIRONMENT]));
 
+// Database manager
 $container['db'] = function($c){
     $adapter = new MysqlAdapter();
     $adapter->setContainer($c);
