@@ -5,9 +5,8 @@ namespace Deployee\Deployments;
 
 
 use Deployee\ContainerAwareInterface;
-use Deployee\ContextContainingInterface;
-use Deployee\Database\Adapter\MysqlAdapter;
-use Deployee\Database\DatabaseManager;
+use Deployee\Core\Contexts\ContextContainingInterface;
+use Deployee\Core\Database\DbManager;
 use Deployee\Deployments\Tasks\TaskInterface;
 use Deployee\DIContainer;
 
@@ -26,6 +25,7 @@ class DeploymentAudit implements ContainerAwareInterface
     }
 
     /**
+     * @param DeploymentInterface $deployment
      * @param TaskInterface $task
      */
     public function addTaskToAudit(DeploymentInterface $deployment, TaskInterface $task){
@@ -42,7 +42,7 @@ class DeploymentAudit implements ContainerAwareInterface
     }
 
     /**
-     * @param TaskInterface $task
+     * @param DeploymentInterface $deployment
      */
     public function addDeploymentToAudit(DeploymentInterface $deployment){
         $now = new \DateTime();
@@ -59,16 +59,9 @@ class DeploymentAudit implements ContainerAwareInterface
     }
 
     /**
-     * @return DatabaseManager
+     * @return DbManager
      */
     private function getDatabaseManager(){
         return $this->container['db'];
-    }
-
-    /**
-     * @return MysqlAdapter
-     */
-    private function getMysqlAdapter(){
-        return $this->getDatabaseManager()->getAdapter('mysql');
     }
 }
