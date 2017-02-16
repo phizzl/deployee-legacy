@@ -4,9 +4,7 @@
 namespace Deployee\Deployments;
 
 
-use Deployee\ExecutionStatusAwareInterface;
-
-interface DeploymentInterface extends ExecutionStatusAwareInterface
+interface DeploymentInterface
 {
     /**
      * Perform deployment

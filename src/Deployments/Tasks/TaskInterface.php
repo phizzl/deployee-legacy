@@ -4,9 +4,7 @@
 namespace Deployee\Deployments\Tasks;
 
 
-use Deployee\ExecutionStatusAwareInterface;
-
-interface TaskInterface extends ExecutionStatusAwareInterface
+interface TaskInterface
 {
     /**
      * @return string

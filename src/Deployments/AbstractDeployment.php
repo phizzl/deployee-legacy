@@ -44,11 +44,6 @@ abstract class AbstractDeployment implements ContainerAwareInterface, Deployment
     protected $context;
 
     /**
-     * @var int
-     */
-    protected $status;
-
-    /**
      * AbstractDeployment constructor.
      */
     public function __construct(){
@@ -62,20 +57,6 @@ abstract class AbstractDeployment implements ContainerAwareInterface, Deployment
       */
     public function setContainer(DIContainer $container){
         $this->container = $container;
-    }
-
-    /**
-     * @param int $status
-     */
-    public function setExecutionStatus($status){
-        $this->status = $status;
-    }
-
-    /**
-     * @return int
-     */
-    public function getExecutionStatus(){
-        return $this->status === null ? ExecutionStatusAwareInterface::EXECUTION_NOT_EXECUTED : $this->status;
     }
 
     /**

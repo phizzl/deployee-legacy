@@ -16,11 +16,6 @@ abstract class AbstractTask implements TaskInterface, ContextContainingInterface
     protected $context;
 
     /**
-     * @var int
-     */
-    protected $status;
-
-    /**
      * @var TaskDescription
      */
     protected $description;
@@ -51,20 +46,6 @@ abstract class AbstractTask implements TaskInterface, ContextContainingInterface
         }
 
         return $this->context;
-    }
-
-    /**
-     * @param int $status
-     */
-    public function setExecutionStatus($status){
-        $this->status = $status;
-    }
-
-    /**
-     * @return int
-     */
-    public function getExecutionStatus(){
-        return $this->status === null ? TaskInterface::EXECUTION_NOT_EXECUTED : $this->status;
     }
 
     /**
