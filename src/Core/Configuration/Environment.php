@@ -35,7 +35,7 @@ class Environment
      * @return string
      */
     public function getDeploymentPath(){
-        return str_replace('~', BASEDIR, $this->environment['deployments']);
+        return str_replace('~', getcwd(), $this->environment['deployments']);
     }
 
     /**
