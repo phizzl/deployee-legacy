@@ -152,6 +152,10 @@ class DeploymentManager implements ContainerAwareInterface
         return true;
     }
 
+    /**
+     * @param DeploymentInterface $deployment
+     * @return bool
+     */
     private function runTasks(DeploymentInterface $deployment){
         $this->output->writeln("Deploying \"{$deployment->getDeploymentId()}\"");
 
