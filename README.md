@@ -35,7 +35,7 @@ Before you can start deploying you have to initialize your environment.
 
 You have to do this for each environment separately. You can user the --env option to tell the application which environment to use
 ```bash
-php bin/deployee.php deployee:init --env=test
+vendor/bin/deployee deployee:init --env=test
 ```
 
 If you don't pass the --env option your default environment that you configured in the configuration is being used.
@@ -45,7 +45,7 @@ If you don't pass the --env option your default environment that you configured 
 To create a new deployment you have to use the deployee:create command.
 You have to pass a name for the deployment and optionally a ticket number
 ```bash
-php bin/deployee.php deployee:create MyTestDeploymet Ticket1
+vendor/bin/deployee deployee:create MyTestDeploymet Ticket1
 ```
 
 After running this command a new file will be added to you environments path you defined in the parameter _deployments_
@@ -86,14 +86,14 @@ class Deploy_1485504939_430_MyTestDeploymet extends Deployee\Deployments\Abstrac
 ### Get the deployment description
 Great! You created your first deployment. Now we can use the following command to get a description of what steps in the deployment will be executed
 ```bash
-php bin/deployee.php deployee:describe > MyDeployment.md
+vendor/bin/deployee deployee:describe > MyDeployment.md
 ```
 The description will be send to stdout in Markdown language. If you have defined a JIRA url in the config.yml and the deployment has a ticket context the ticket names will be linked to JIRA.
 
 ### Executing the deployment
 Now we can execute the deployment.
 ```bash
-php bin/deployee.php deployee:deploy
+vendor/bin/deployee deployee:deploy
 ```
 
 Now every deployment is being executed, that hasn't being executed in your environment yet. The full history and audit can be viewed in your environments database in the tables
