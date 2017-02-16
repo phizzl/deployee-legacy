@@ -3,11 +3,8 @@
 
 namespace Deployee\Core\Console\Commands;
 
-use Deployee\Database\Adapter\Mysql\Table;
-use Deployee\Database\Adapter\MysqlAdapter;
-use Deployee\Database\DatabaseManager;
 use Deployee\Deployments\DeploymentManager;
-use Deployee\Deployments\DescribableInterface;
+use Deployee\Descriptions\DescribableInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Deployee\Deployments;
+namespace Deployee\Descriptions;
 
 
 interface DescribableInterface

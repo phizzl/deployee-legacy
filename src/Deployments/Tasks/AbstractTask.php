@@ -5,7 +5,7 @@ namespace Deployee\Deployments\Tasks;
 
 use Deployee\Core\Contexts\Context;
 use Deployee\Core\Contexts\ContextContainingInterface;
-use Deployee\Deployments\DescribableInterface;
+use Deployee\Descriptions\DescribableInterface;
 use Deployee\Descriptions\TaskDescription;
 
 abstract class AbstractTask implements TaskInterface, ContextContainingInterface, DescribableInterface

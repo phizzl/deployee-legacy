@@ -20,11 +20,10 @@ use Deployee\Deployments\Tasks\Mysql\ExecFileTask;
 use Deployee\Deployments\Tasks\OxidEshop\ActivateModuleTask;
 use Deployee\Deployments\Tasks\OxidEshop\DeactivateModuleTask;
 use Deployee\Deployments\Tasks\OxidEshop\SetConfigTask;
-use Deployee\Deployments\Tasks\TaskExecutionException;
 use Deployee\Deployments\Tasks\TaskInterface;
 use Deployee\Descriptions\DeploymentDescription;
+use Deployee\Descriptions\DescribableInterface;
 use Deployee\DIContainer;
-use Deployee\ExecutionStatusAwareInterface;
 
 abstract class AbstractDeployment implements ContainerAwareInterface, DeploymentInterface, ContextContainingInterface, DescribableInterface
 {
