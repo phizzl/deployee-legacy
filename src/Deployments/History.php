@@ -8,7 +8,7 @@ use Deployee\Core\Contexts\ContextContainingInterface;
 use Deployee\Core\Database\DbManager;
 use Deployee\DIContainer;
 
-class DeploymentHistory implements ContainerAwareInterface
+class History implements ContainerAwareInterface
 {
     /**
      * @var DIContainer

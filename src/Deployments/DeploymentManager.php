@@ -24,12 +24,12 @@ class DeploymentManager implements ContainerAwareInterface
     private $container;
 
     /**
-     * @var DeploymentHistory
+     * @var History
      */
     private $history;
 
     /**
-     * @var DeploymentAudit
+     * @var Audit
      */
     private $audit;
 
@@ -43,9 +43,9 @@ class DeploymentManager implements ContainerAwareInterface
      */
     public function setContainer(DIContainer $container){
         $this->container = $container;
-        $this->history = new DeploymentHistory();
+        $this->history = new History();
         $this->history->setContainer($this->container);
-        $this->audit = new DeploymentAudit();
+        $this->audit = new Audit();
         $this->audit->setContainer($this->container);
         $this->output = new NullOutput();
     }
@@ -60,14 +60,14 @@ class DeploymentManager implements ContainerAwareInterface
     }
 
     /**
-     * @return DeploymentHistory
+     * @return History
      */
     public function getHistory(){
         return $this->history;
     }
 
     /**
-     * @return DeploymentAudit
+     * @return Audit
      */
     public function getAudit(){
         return $this->audit;
@@ -162,7 +162,7 @@ class DeploymentManager implements ContainerAwareInterface
             try {
                 $this->output->writeln("\tExecuting task \"{$task->getTaskIdentifier()}\"");
                 $task->execute();
-                $this->getAudit()->addTaskToAudit($deployment, $task, DeploymentAudit::STATUS_OK);
+                $this->getAudit()->addTaskToAudit($deployment, $task, Audit::STATUS_OK);
             }
             catch(\Exception $e){
                 foreach(array($task, $deployment) as $obj){
@@ -180,14 +180,14 @@ class DeploymentManager implements ContainerAwareInterface
                 $this->output->writeln($e->getMessage(), OutputInterface::VERBOSITY_VERBOSE);
                 $this->output->writeln($e->getTraceAsString(), OutputInterface::VERBOSITY_DEBUG);
 
-                $this->getAudit()->addTaskToAudit($deployment, $task, DeploymentAudit::STATUS_FAILED);
-                $this->getAudit()->addDeploymentToAudit($deployment, DeploymentAudit::STATUS_FAILED);
+                $this->getAudit()->addTaskToAudit($deployment, $task, Audit::STATUS_FAILED);
+                $this->getAudit()->addDeploymentToAudit($deployment, Audit::STATUS_FAILED);
                 return false;
             }
         }
 
         $this->output->writeln("Finished deploying \"{$deployment->getDeploymentId()}\"");
-        $this->getAudit()->addDeploymentToAudit($deployment, DeploymentAudit::STATUS_FAILED);
+        $this->getAudit()->addDeploymentToAudit($deployment, Audit::STATUS_FAILED);
 
         return true;
     }
