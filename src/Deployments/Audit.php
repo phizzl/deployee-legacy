@@ -10,7 +10,7 @@ use Deployee\Core\Database\DbManager;
 use Deployee\Deployments\Tasks\TaskInterface;
 use Deployee\DIContainer;
 
-class DeploymentAudit implements ContainerAwareInterface
+class Audit implements ContainerAwareInterface
 {
     const STATUS_FAILED = 0;
 
