@@ -11,9 +11,10 @@ php composer.phar install
 ```
 
 ### Configuration
-You have to edit the parameters in the config.yml
-You need to have a database connection to run the tool.
+The configuration for different environments will be stored in a file called deployee.yml.
+Deployee will search for the configuration in $(pwd) and $(pwd)/config.
 
+The configuration is structured as the following example
 ```yaml
 default_environment: test
 jira: ~
