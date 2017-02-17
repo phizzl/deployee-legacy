@@ -4,20 +4,54 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc2a594e8cf7d4e8cf8ef9fe4f129fb2",
+    "content-hash": "b7cb2c8dcb2adebe689f785397ddcd77",
     "packages": [
+        {
+            "name": "phizzl/phpshellcommand",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phizzl/phpshellcommand.git",
+                "reference": "67a1762acff1bf355d20f6eb26896ce7475c0a16"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/phizzl/phpshellcommand/archive/master.zip",
+                "reference": "67a1762acff1bf355d20f6eb26896ce7475c0a16",
+                "shasum": null
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Phizzl\\PhpShellCommand\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Phillip Schleicher",
+                    "email": "the@phizzl.de",
+                    "homepage": "http://phizzl.de",
+                    "role": "Developer"
+                }
+            ],
+            "support": {
+                "source": "https://github.com/phizzl/phpshellcommand/tree/master",
+                "issues": "https://github.com/phizzl/phpshellcommand/issues"
+            },
+            "time": "2017-02-17 07:42:45"
+        },
         {
             "name": "phizzl/querygenerate",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phizzl/querygenerate.git",
-                "reference": "86918b410c9ccf23f05fd785a5443183f4702989"
+                "reference": "43f08fcfd1cae19f44d333043a8e56e960c6d85c"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/phizzl/querygenerate/archive/master.zip",
-                "reference": "86918b410c9ccf23f05fd785a5443183f4702989",
+                "reference": "43f08fcfd1cae19f44d333043a8e56e960c6d85c",
                 "shasum": null
             },
             "type": "library",
@@ -26,11 +60,19 @@
                     "Phizzl\\QueryGenerate\\": "src/"
                 }
             },
+            "authors": [
+                {
+                    "name": "Phillip Schleicher",
+                    "email": "the@phizzl.de",
+                    "homepage": "http://phizzl.de",
+                    "role": "Developer"
+                }
+            ],
             "support": {
                 "source": "https://github.com/phizzl/querygenerate/tree/master",
                 "issues": "https://github.com/phizzl/querygenerate/issues"
             },
-            "time": "2017-01-31 14:12:17"
+            "time": "2017-02-17 07:33:15"
         },
         {
             "name": "pimple/pimple",
@@ -127,16 +169,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "7a8405a9fc175f87fed8a3c40856b0d866d61936"
+                "reference": "0e5e6899f82230fcb1153bcaf0e106ffaa44b870"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/7a8405a9fc175f87fed8a3c40856b0d866d61936",
-                "reference": "7a8405a9fc175f87fed8a3c40856b0d866d61936",
+                "url": "https://api.github.com/repos/symfony/console/zipball/0e5e6899f82230fcb1153bcaf0e106ffaa44b870",
+                "reference": "0e5e6899f82230fcb1153bcaf0e106ffaa44b870",
                 "shasum": ""
             },
             "require": {
@@ -186,20 +228,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-02-06T12:04:21+00:00"
+            "time": "2017-02-16T14:07:22+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "b4d9818f127c60ce21ed62c395da7df868dc8477"
+                "reference": "9b98854cb45bc59d100b7d4cc4cf9e05f21026b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/b4d9818f127c60ce21ed62c395da7df868dc8477",
-                "reference": "b4d9818f127c60ce21ed62c395da7df868dc8477",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/9b98854cb45bc59d100b7d4cc4cf9e05f21026b9",
+                "reference": "9b98854cb45bc59d100b7d4cc4cf9e05f21026b9",
                 "shasum": ""
             },
             "require": {
@@ -243,67 +285,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-28T02:37:08+00:00"
-        },
-        {
-            "name": "symfony/event-dispatcher",
-            "version": "v3.2.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "9137eb3a3328e413212826d63eeeb0217836e2b6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/9137eb3a3328e413212826d63eeeb0217836e2b6",
-                "reference": "9137eb3a3328e413212826d63eeeb0217836e2b6",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "psr/log": "~1.0",
-                "symfony/config": "~2.8|~3.0",
-                "symfony/dependency-injection": "~2.8|~3.0",
-                "symfony/expression-language": "~2.8|~3.0",
-                "symfony/stopwatch": "~2.8|~3.0"
-            },
-            "suggest": {
-                "symfony/dependency-injection": "",
-                "symfony/http-kernel": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.2-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\EventDispatcher\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony EventDispatcher Component",
-            "homepage": "https://symfony.com",
-            "time": "2017-01-02T20:32:22+00:00"
+            "time": "2017-02-16T16:34:18+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -366,16 +348,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "e1718c6bf57e1efbb8793ada951584b2ab27775b"
+                "reference": "9724c684646fcb5387d579b4bfaa63ee0b0c64c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/e1718c6bf57e1efbb8793ada951584b2ab27775b",
-                "reference": "e1718c6bf57e1efbb8793ada951584b2ab27775b",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/9724c684646fcb5387d579b4bfaa63ee0b0c64c8",
+                "reference": "9724c684646fcb5387d579b4bfaa63ee0b0c64c8",
                 "shasum": ""
             },
             "require": {
@@ -417,14 +399,15 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-21T17:06:35+00:00"
+            "time": "2017-02-16T22:46:52+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "phizzl/querygenerate": 20
+        "phizzl/querygenerate": 20,
+        "phizzl/phpshellcommand": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

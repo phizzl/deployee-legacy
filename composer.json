@@ -6,12 +6,17 @@
     "pimple/pimple": "~3.0",
     "symfony/console": "^3.2",
     "symfony/yaml": "^3.2",
-    "phizzl/querygenerate": "dev-master"
+    "phizzl/querygenerate": "dev-master",
+    "phizzl/phpshellcommand": "dev-master"
   },
   "repositories": [
     {
       "type": "vcs",
       "url": "https://github.com/phizzl/querygenerate"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/phizzl/phpshellcommand"
     }
   ],
   "bin": ["scripts/deployee"],
