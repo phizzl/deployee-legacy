@@ -1,7 +1,6 @@
 <?php
 
-use Deployee\Database\Adapter\MysqlAdapter;
-use Deployee\Database\DatabaseManager;
+use Deployee\Core\Database\DbManager;
 
 class Deploy_1485505576_3809_RemoveTestfile extends Deployee\Deployments\AbstractDeployment
 {
@@ -13,7 +12,7 @@ class Deploy_1485505576_3809_RemoveTestfile extends Deployee\Deployments\Abstrac
 
         $this->removeFile(__DIR__ . '/test2.txt');
 
-        /* @var DatabaseManager $dbm */
+        /* @var DbManager $dbm */
         $dbm = $this->container['db'];
         $this->changeTable(
             $dbm

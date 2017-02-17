@@ -1,5 +1,7 @@
 <?php
 
+use Deployee\Core\Database\DbManager;
+
 class Deploy_1485617895_1659_RemoveOriginalTestfile extends Deployee\Deployments\AbstractDeployment
 {
     /**
@@ -8,7 +10,7 @@ class Deploy_1485617895_1659_RemoveOriginalTestfile extends Deployee\Deployments
     public function configure(){
         $this->removeFile(__DIR__ . '/test.txt');
 
-        /* @var DatabaseManager $dbm */
+        /* @var DbManager $dbm */
         $dbm = $this->container['db'];
         $this->changeTable(
             $dbm

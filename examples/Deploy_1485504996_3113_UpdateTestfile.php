@@ -1,6 +1,6 @@
 <?php
 
-use Deployee\Database\DatabaseManager;
+use Deployee\Core\Database\DbManager;
 
 class Deploy_1485504996_3113_UpdateTestfile extends Deployee\Deployments\AbstractDeployment
 {
@@ -12,7 +12,7 @@ class Deploy_1485504996_3113_UpdateTestfile extends Deployee\Deployments\Abstrac
         $this->updateFile(__DIR__ . '/test.txt', 'This is my updated content!');
         $this->createFile(__DIR__ . '/test2.txt', 'Another test file');
 
-        /* @var DatabaseManager $dbm */
+        /* @var DbManager $dbm */
         $dbm = $this->container['db'];
         $this->createTable(
             $dbm
