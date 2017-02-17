@@ -21,5 +21,13 @@
   "dist": {
     "url": "https://github.com/phizzl/deployee/archive/master.zip",
     "type": "zip"
-  }
+  },
+  "authors": [
+    {
+      "name": "Phillip Schleicher",
+      "email": "the@phizzl.de",
+      "homepage": "http://phizzl.de",
+      "role": "Developer"
+    }
+  ]
 }
