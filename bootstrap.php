@@ -7,9 +7,6 @@ use Deployee\Core\Database\DbManager;
 use Deployee\Core\DependencyResolver;
 use Deployee\DIContainer;
 use Deployee\Core\Configuration\Environment;
-use Deployee\Core\Events\ApplicationCreateEvent;
-use Deployee\Core\Subscriber\ApplicationCommandSubscriber;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -50,10 +47,6 @@ $container['config'] = function(){
     return new Configuration($parameter);
 };
 
-$container['eventdispatcher'] = function(){
-    return new Symfony\Component\EventDispatcher\EventDispatcher();
-};
-
 // Dependency resolver
 $container['dependencyresolver'] = function($c){
     return new DependencyResolver($c);
@@ -63,16 +56,8 @@ $container['console'] = function($c){
     $console = new Application('Deployee', '0.0.1');
     $c['dependencyresolver']->resolve($console);
 
-    $event = new ApplicationCreateEvent($c);
-    $event->setConsole($console);
-    $c['eventdispatcher']->dispatch(ApplicationCreateEvent::NAME, $event);
-
     return $console;
 };
-
-/* @var EventDispatcher $eventDispatcher */
-$eventDispatcher = $container['eventdispatcher'];
-$eventDispatcher->addSubscriber(new ApplicationCommandSubscriber());
 
 $defaultEnv = $container['config']->get('default_environment');
 if(php_sapi_name() == 'cli'){
