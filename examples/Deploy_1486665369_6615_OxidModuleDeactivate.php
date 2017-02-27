@@ -6,6 +6,6 @@ class Deploy_1486665369_6615_OxidModuleDeactivate extends Deployee\Deployments\A
      * @inheritdoc
      */
     public function configure(){
-        $this->oxidActivateModule("invoicepdf");
+        $this->plugin('oxid')->deactivateModule("invoicepdf");
     }
 }

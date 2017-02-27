@@ -7,6 +7,7 @@ use Deployee\Core\Database\DbManager;
 use Deployee\Core\DependencyResolver;
 use Deployee\DIContainer;
 use Deployee\Core\Configuration\Environment;
+use Pimple\Container;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -59,7 +60,9 @@ $container['console'] = function($c){
     return $console;
 };
 
-$defaultEnv = $container['config']->get('default_environment');
+/* @var Configuration $config */
+$config = $container['config'];
+$defaultEnv = $config->get('default_environment');
 if(php_sapi_name() == 'cli'){
     $bootArguments = array($_SERVER['argv'][0]);
     foreach($_SERVER['argv'] as $i => $value){
@@ -79,12 +82,12 @@ else {
     die("Cannot use an non cli");
 }
 
-$envs = $container['config']->get('environments');
+$envs = $config->get('environments');
 if(!isset($envs[ENVIRONMENT])){
     throw new \Exception("Environment undefined \"".ENVIRONMENT."\"");
 }
 
-$container['config']->setEnvironment(new Environment($envs[ENVIRONMENT]));
+$config->setEnvironment(new Environment($envs[ENVIRONMENT]));
 
 // Database manager
 $container['db'] = function($c){
@@ -95,5 +98,16 @@ $container['db'] = function($c){
 
     return $db;
 };
+
+// Load plugins
+$pluginContainer = new Container();
+$plugins = $config->get('plugins', array());
+foreach($plugins as $name => $pluginClass){
+    $plugin = new $pluginClass;
+    $container['dependencyresolver']->resolve($plugin);
+    $pluginContainer[$name] = $plugin;
+}
+
+$container['plugins'] = $pluginContainer;
 
 return $container;

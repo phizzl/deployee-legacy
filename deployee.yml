@@ -1,5 +1,7 @@
 default_environment: test
 jira: ~
+plugins:
+  oxid: Deployee\Plugins\OxidEshop\OxidEshopPlugin
 environments:
   test:
     oxid_path: D:/xampp/php_5.6.15/htdocs/ce/source

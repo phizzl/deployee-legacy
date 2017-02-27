@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Deployee\Deployments\Tasks\OxidEshop;
+namespace Deployee\Plugins\OxidEshop\Tasks;
 
 use Deployee\Deployments\Tasks\CommandLine\ExecuteInternalCommandTask;
 use Deployee\Descriptions\TaskDescription;
 
-class DeactivateModuleTask extends ExecuteInternalCommandTask
+class ActivateModuleTask extends ExecuteInternalCommandTask
 {
     /**
      * @var string
@@ -19,14 +19,14 @@ class DeactivateModuleTask extends ExecuteInternalCommandTask
     private $shopId;
 
     /**
-     * DeactivateModuleTask constructor.
+     * ActivateModuleTask constructor.
      * @param string $moduleident
      * @param null $shopId
      */
     public function __construct($moduleident, $shopId = null){
         $this->moduleident = $moduleident;
         $this->shopId = $shopId;
-        parent::__construct("oxid:module {$moduleident} deactivate" . ($this->shopId ? " --shopid={$this->shopId}" : ""));
+        parent::__construct("oxid:module {$moduleident} activate" . ($this->shopId ? " --shopid={$this->shopId}" : ""));
     }
 
     /**
@@ -36,7 +36,7 @@ class DeactivateModuleTask extends ExecuteInternalCommandTask
         $desc = parent::getDescription();
         $desc->describeInLang(
             TaskDescription::LANG_DE,
-            "Deaktiviere das OXID eShop Modul \"{$this->moduleident}\"" . ($this->shopId ? " im Shop \"{$this->shopId}\"" : "")
+            "Aktiviere das Modul \"{$this->moduleident}\"" . ($this->shopId ? " im Shop \"{$this->shopId}\"" : "")
         );
 
         return $desc;

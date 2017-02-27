@@ -24,6 +24,7 @@ use Deployee\Deployments\Tasks\TaskInterface;
 use Deployee\Descriptions\DeploymentDescription;
 use Deployee\Descriptions\DescribableInterface;
 use Deployee\DIContainer;
+use Deployee\Plugins\PluginInterface;
 
 abstract class AbstractDeployment implements ContainerAwareInterface, DeploymentInterface, ContextContainingInterface, DescribableInterface
 {
@@ -93,10 +94,26 @@ abstract class AbstractDeployment implements ContainerAwareInterface, Deployment
     }
 
     /**
+     * @param string $name
+     * @return PluginInterface
+     */
+    protected function plugin($name){
+        if(!isset($this->container['plugins'][$name])){
+            throw new \RuntimeException("Plugin \"$name\" is not registered");
+        }
+
+        /* @var PluginInterface $plugin */
+        $plugin = $this->container['plugins'][$name];
+        $plugin->setDeployment($this);
+
+        return $plugin;
+    }
+
+    /**
      * @param TaskInterface $task
      * @return $this
      */
-    protected function addTask(TaskInterface $task){
+    public function addTask(TaskInterface $task){
         $this->tasks[] = $task;
         return $this;
     }
@@ -179,33 +196,6 @@ abstract class AbstractDeployment implements ContainerAwareInterface, Deployment
      */
     protected function executeSqlFile($filepath){
         return $this->addTask(new ExecFileTask($filepath, $this->container['db']));
-    }
-
-    /**
-     * @param string $moduleident
-     * @return AbstractDeployment
-     */
-    protected function oxidActivateModule($moduleident){
-        return $this->addTask(new ActivateModuleTask($moduleident));
-    }
-
-    /**
-     * @param string $moduleident
-     * @return AbstractDeployment
-     */
-    protected function oxidDeactivateModule($moduleident){
-        return $this->addTask(new DeactivateModuleTask($moduleident));
-    }
-
-    /**
-     * @param string $name
-     * @param string $type
-     * @param mixed $value
-     * @param string|null $module
-     * @return AbstractDeployment
-     */
-    protected function oxidSetConfig($name, $type, $value, $module = null){
-        return $this->addTask(new SetConfigTask($type, $name, $value, $module));
     }
 
     /**
