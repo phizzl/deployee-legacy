@@ -6,6 +6,7 @@ use Deployee\Deployments\AbstractDeployment;
 use Deployee\Plugins\AbstractPlugin;
 use Deployee\Plugins\OxidEshop\Tasks\ActivateModuleTask;
 use Deployee\Plugins\OxidEshop\Tasks\DeactivateModuleTask;
+use Deployee\Core\Console\Commands\OxidEshop\ModuleCommand;
 
 class OxidEshopPlugin extends AbstractPlugin
 {
@@ -23,5 +24,12 @@ class OxidEshopPlugin extends AbstractPlugin
      */
     public function deactivateModule($moduleident){
         return $this->deployment->addTask(new DeactivateModuleTask($moduleident));
+    }
+    
+    public function initialize(){
+        $app = $this->container['console'];
+        $app->addCommands(array(
+            new ModuleCommand()
+        ));
     }
 }
