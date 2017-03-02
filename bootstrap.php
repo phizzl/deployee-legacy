@@ -106,6 +106,7 @@ foreach($plugins as $name => $pluginClass){
     $plugin = new $pluginClass;
     $container['dependencyresolver']->resolve($plugin);
     $pluginContainer[$name] = $plugin;
+    $plugin->initialize();
 }
 
 $container['plugins'] = $pluginContainer;
