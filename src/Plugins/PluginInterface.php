@@ -13,4 +13,6 @@ interface PluginInterface extends ContainerAwareInterface
      * @param DeploymentInterface $deployment
      */
     public function setDeployment(DeploymentInterface $deployment);
+    
+    public function initialize();
 }
