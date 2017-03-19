@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Deployee\Core\Console\Commands\OxidEshop;
+namespace Deployee\Plugins\OxidEshop\Commands;
 
 use Deployee\Core\Configuration\Environment;
 use Deployee\Core\Console\Commands\AbstractCommand;

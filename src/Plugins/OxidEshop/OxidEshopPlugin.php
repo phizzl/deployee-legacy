@@ -2,12 +2,11 @@
 
 namespace Deployee\Plugins\OxidEshop;
 
-use Deployee\Core\Console\Commands\OxidEshop\ModuleCommand;
 use Deployee\Deployments\AbstractDeployment;
 use Deployee\Plugins\AbstractPlugin;
+use Deployee\Plugins\OxidEshop\Commands\ModuleCommand;
 use Deployee\Plugins\OxidEshop\Tasks\ActivateModuleTask;
 use Deployee\Plugins\OxidEshop\Tasks\DeactivateModuleTask;
-use Deployee\Core\Console\Commands\OxidEshop\ModuleCommand;
 
 class OxidEshopPlugin extends AbstractPlugin
 {
