@@ -40,4 +40,8 @@ class AbstractPlugin implements PluginInterface
     public function setDeployment(DeploymentInterface $deployment){
         $this->deployment = $deployment;
     }
+    
+    public function initialize(){
+    
+    }
 }
