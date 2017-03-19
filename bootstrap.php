@@ -7,6 +7,7 @@ use Deployee\Core\Database\DbManager;
 use Deployee\Core\DependencyResolver;
 use Deployee\DIContainer;
 use Deployee\Core\Configuration\Environment;
+use Deployee\Plugins\PluginInterface;
 use Pimple\Container;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Console\Input\ArgvInput;
@@ -103,8 +104,10 @@ $container['db'] = function($c){
 $pluginContainer = new Container();
 $plugins = $config->get('plugins', array());
 foreach($plugins as $name => $pluginClass){
+    /* @var PluginInterface $plugin */
     $plugin = new $pluginClass;
     $container['dependencyresolver']->resolve($plugin);
+    $plugin->init();
     $pluginContainer[$name] = $plugin;
 }
 

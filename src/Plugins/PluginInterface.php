@@ -10,6 +10,11 @@ use Deployee\Deployments\DeploymentInterface;
 interface PluginInterface extends ContainerAwareInterface
 {
     /**
+     * @return mixed
+     */
+    public function init();
+
+    /**
      * @param DeploymentInterface $deployment
      */
     public function setDeployment(DeploymentInterface $deployment);

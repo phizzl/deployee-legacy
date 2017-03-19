@@ -8,9 +8,9 @@ class ExecuteInternalCommandTask extends ExecuteCommandTask
 {
     /**
      * ExecuteInternalCommandTask constructor.
-     * @param string$command
+     * @param string $command
      */
     public function __construct($command){
-        parent::__construct("php " . DEPLOYEE_BASEDIR . "/scripts/deployee_internals.php " . $command);
+        parent::__construct("php " . DEPLOYEE_BASEDIR . "/scripts/deployee " . $command);
     }
 }

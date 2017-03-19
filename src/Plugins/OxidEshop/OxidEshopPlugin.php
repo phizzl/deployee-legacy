@@ -2,6 +2,7 @@
 
 namespace Deployee\Plugins\OxidEshop;
 
+use Deployee\Core\Console\Commands\OxidEshop\ModuleCommand;
 use Deployee\Deployments\AbstractDeployment;
 use Deployee\Plugins\AbstractPlugin;
 use Deployee\Plugins\OxidEshop\Tasks\ActivateModuleTask;
@@ -9,6 +10,17 @@ use Deployee\Plugins\OxidEshop\Tasks\DeactivateModuleTask;
 
 class OxidEshopPlugin extends AbstractPlugin
 {
+    /**
+     * @inheritdoc
+     */
+    public function init(){
+        parent::init();
+
+        $this->container['console']->addCommands(array(
+            new ModuleCommand()
+        ));
+    }
+
     /**
      * @param string $moduleident
      * @return AbstractDeployment

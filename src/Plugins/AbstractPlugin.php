@@ -20,6 +20,14 @@ class AbstractPlugin implements PluginInterface
     protected $deployment;
 
     /**
+     * @inheritdoc
+     */
+    public function init(){
+
+    }
+
+
+    /**
      * @param DIContainer $container
      */
     public function setContainer(DIContainer $container){
