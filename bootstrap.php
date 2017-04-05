@@ -16,10 +16,10 @@ use Symfony\Component\Console\Input\InputOption;
 
 define('DEPLOYEE_BASEDIR', __DIR__);
 
-$autoloadFiles = [
+$autoloadFiles = array(
     __DIR__ . '/vendor/autoload.php',
     __DIR__ . '/../../autoload.php'
-];
+);
 
 foreach ($autoloadFiles as $autoloadFile) {
     if (file_exists($autoloadFile)) {
@@ -31,7 +31,7 @@ foreach ($autoloadFiles as $autoloadFile) {
 $container = new DIContainer();
 $container['loader'] = $loader;
 $container['config'] = function(){
-    $directories = [getcwd(), getcwd() . DIRECTORY_SEPARATOR . 'config'];
+    $directories = array(getcwd(), getcwd() . DIRECTORY_SEPARATOR . 'config');
     $configfile = null;
     foreach($directories as $dir){
         if(file_exists($dir . DIRECTORY_SEPARATOR . "deployee.yml")){
@@ -75,7 +75,7 @@ if(php_sapi_name() == 'cli'){
     }
 
     $inputOption =  new InputOption('env', 'e', InputOption::VALUE_REQUIRED, 'The deployee environment', $defaultEnv);
-    $inputDefinition = new InputDefinition([$inputOption]);
+    $inputDefinition = new InputDefinition(array($inputOption));
     $input = new ArgvInput($bootArguments,$inputDefinition);
     define('ENVIRONMENT', $input->getOption('env'));
 }
