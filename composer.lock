@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7cb2c8dcb2adebe689f785397ddcd77",
+    "content-hash": "d957588b7094b9b8917d1c9321698612",
     "packages": [
         {
             "name": "phizzl/phpshellcommand",
@@ -60,6 +60,7 @@
                     "Phizzl\\QueryGenerate\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "Phillip Schleicher",
@@ -68,10 +69,6 @@
                     "role": "Developer"
                 }
             ],
-            "support": {
-                "source": "https://github.com/phizzl/querygenerate/tree/master",
-                "issues": "https://github.com/phizzl/querygenerate/issues"
-            },
             "time": "2017-02-17 07:33:15"
         },
         {
@@ -406,8 +403,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "phizzl/querygenerate": 20,
-        "phizzl/phpshellcommand": 20
+        "phizzl/phpshellcommand": 20,
+        "phizzl/querygenerate": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
