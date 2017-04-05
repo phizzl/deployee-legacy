@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d957588b7094b9b8917d1c9321698612",
+    "content-hash": "433adac5f91f6e41cdf128dca4eae118",
     "packages": [
         {
             "name": "phizzl/phpshellcommand",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phizzl/phpshellcommand.git",
-                "reference": "4f2a9bac1a685991478954072231368783bbc54d"
+                "reference": "aa0f205c82884850fa14b9577cb62232a7ade2d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/phizzl/phpshellcommand/archive/master.zip",
-                "reference": "4f2a9bac1a685991478954072231368783bbc54d",
-                "shasum": null
+                "url": "https://api.github.com/repos/phizzl/phpshellcommand/zipball/aa0f205c82884850fa14b9577cb62232a7ade2d1",
+                "reference": "aa0f205c82884850fa14b9577cb62232a7ade2d1",
+                "shasum": ""
             },
             "type": "library",
             "autoload": {
@@ -26,6 +26,7 @@
                     "Phizzl\\PhpShellCommand\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "Phillip Schleicher",
@@ -34,25 +35,21 @@
                     "role": "Developer"
                 }
             ],
-            "support": {
-                "source": "https://github.com/phizzl/phpshellcommand/tree/master",
-                "issues": "https://github.com/phizzl/phpshellcommand/issues"
-            },
-            "time": "2017-04-04 17:36:39"
+            "time": "2017-04-05T09:10:09+00:00"
         },
         {
             "name": "phizzl/querygenerate",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phizzl/querygenerate.git",
-                "reference": "43f08fcfd1cae19f44d333043a8e56e960c6d85c"
+                "reference": "a578aa755f1a26fc53104abd05d9b45b696a61a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/phizzl/querygenerate/archive/master.zip",
-                "reference": "43f08fcfd1cae19f44d333043a8e56e960c6d85c",
-                "shasum": null
+                "url": "https://api.github.com/repos/phizzl/querygenerate/zipball/a578aa755f1a26fc53104abd05d9b45b696a61a9",
+                "reference": "a578aa755f1a26fc53104abd05d9b45b696a61a9",
+                "shasum": ""
             },
             "type": "library",
             "autoload": {
@@ -69,7 +66,7 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2017-02-17 07:33:15"
+            "time": "2017-04-05T09:12:02+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -402,10 +399,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "phizzl/phpshellcommand": 20,
-        "phizzl/querygenerate": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
