@@ -15,6 +15,11 @@ class ExecuteCommandTask extends AbstractTask
     /**
      * @var string
      */
+    protected $plainCommand;
+
+    /**
+     * @var string
+     */
     protected $command;
 
     /**
@@ -22,6 +27,7 @@ class ExecuteCommandTask extends AbstractTask
      * @param string $command
      */
     public function __construct($command, $timeout = null){
+        $this->plainCommand = $command;
         $this->command = new ShellCommand($command, null, $timeout === null ? null : new ExecTimeout($timeout));
         $this->getContext()->set('command', $command);
     }
@@ -52,7 +58,7 @@ class ExecuteCommandTask extends AbstractTask
         $desc = parent::getDescription();
         $desc->describeInLang(
             TaskDescription::LANG_DE,
-            "Der Befehl \"{$this->command}\" wird ausgeführt.\n"
+            "Der Befehl \"{$this->plainCommand}\" wird ausgeführt.\n"
         );
 
         return $desc;
