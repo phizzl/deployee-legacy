@@ -4,7 +4,7 @@
   },
   "require": {
     "pimple/pimple": "~3.0",
-    "symfony/console": "^3.2",
+    "symfony/console": "^2.4",
     "symfony/yaml": "^3.2",
     "phizzl/phpshellcommand": "^1.0",
     "phizzl/querygenerate": "^1.0"
