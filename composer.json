@@ -2,7 +2,7 @@
   "autoload": {
     "psr-4": {"Deployee\\": "src/"}
   },
-  "tags": ["delpoyment"],
+  "tags": ["deployment"],
   "require": {
     "pimple/pimple": "~3.0",
     "symfony/console": "^2.4",
