@@ -1,23 +1,17 @@
 <?php
 
+namespace Phizzl\Deployee\Plugins;
 
-namespace Deployee\Plugins;
 
-
-use Deployee\ContainerAwareInterface;
-use Deployee\Deployments\DeploymentInterface;
-
-interface PluginInterface extends ContainerAwareInterface
+interface PluginInterface
 {
     /**
-     * @return mixed
+     * @return string
      */
-    public function init();
+    public function getId();
 
     /**
-     * @param DeploymentInterface $deployment
+     * @return void
      */
-    public function setDeployment(DeploymentInterface $deployment);
-    
     public function initialize();
 }

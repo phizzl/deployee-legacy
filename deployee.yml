@@ -1,0 +1,20 @@
+db:
+    host: localhost
+    port: 3306
+    name: deployee_test
+    user: root
+    password: ''
+deploy:
+    path: deploy
+system:
+    plugins:
+        - Phizzl\Deployee\Plugins\Plugin
+    tasks:
+        dispatcher:
+            - Phizzl\Deployee\Deployments\Dispatcher\FilesystemTaskDispatcher
+            - Phizzl\Deployee\Deployments\Dispatcher\MySqlTaskDispatcher
+            - Phizzl\Deployee\Deployments\Dispatcher\CommentTaskDispatcher
+        descriptors:
+            - Phizzl\Deployee\Descriptor\FilesystemTaskDescriptor
+            - Phizzl\Deployee\Descriptor\MySqlTaskDescriptor
+            - Phizzl\Deployee\Descriptor\CommentTaskDescriptor

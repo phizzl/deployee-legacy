@@ -1,0 +1,33 @@
+#!/usr/bin/env php
+<?php
+
+use Phizzl\Deployee\Di\DiContainerInterface;
+use Phizzl\Deployee\Di\DiInjectorInterface;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
+
+/* @var DiContainerInterface $di */
+$di = require_once __DIR__ . '/../bootstrap.php';
+
+/* @var DiInjectorInterface $injector */
+$injector = $di->get('di.injector');
+$console = new Application();
+
+foreach(glob($di->get('_basepath') . '/src/Commands/*Command.php') as $classFile){
+    $classFile = basename($classFile);
+    $classBaseName = substr($classFile, 0, strrpos($classFile, '.php'));
+    $fullClassName = 'Phizzl\Deployee\Commands\\' . $classBaseName;
+
+    if(!class_exists($fullClassName)
+        || !(new ReflectionClass($fullClassName))->isInstantiable()){
+        continue;
+    }
+
+    /* @var Command $command */
+    $command = new $fullClassName;
+    $injector->injectDependencies($command);
+
+    $console->add($command);
+}
+
+$console->run();

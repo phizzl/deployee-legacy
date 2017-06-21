@@ -1,25 +1,26 @@
 {
-  "autoload": {
-    "psr-4": {"Deployee\\": "src/"}
-  },
-  "tags": ["delpoyment"],
-  "require": {
-    "pimple/pimple": "~3.0",
-    "symfony/console": "^2.4",
-    "symfony/yaml": "^2.8",
-    "phizzl/phpshellcommand": "^1.0",
-    "phizzl/querygenerate": "^1.0"
-  },
-  "licence": "GPL-3.0",
-  "bin": ["scripts/deployee"],
   "name": "phizzl/deployee",
-  "version": "1.0.0",
+  "minimum-stability": "stable",
+  "license": "GPL-3.0",
   "authors": [
     {
       "name": "Phillip Schleicher",
-      "email": "the@phizzl.de",
-      "homepage": "http://phizzl.de",
-      "role": "Developer"
+      "email": "the@phizzl.de"
     }
-  ]
+  ],
+  "version": "2.0.0",
+  "require": {
+    "symfony/yaml": "^3.3",
+    "symfony/console": "^3.3",
+    "pimple/pimple": "^3.0",
+    "monolog/monolog": "^1.22",
+    "symfony/finder": "^3.3",
+    "phpdocumentor/reflection-docblock": "3.1.1"
+  },
+  "bin": ["bin/deployee"],
+  "autoload": {
+    "psr-4": {
+      "Phizzl\\Deployee\\": "src/"
+    }
+  }
 }
